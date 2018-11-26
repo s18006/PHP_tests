@@ -1,0 +1,59 @@
+
+body {
+    background: linear-gradient(silver);
+    height: auto;
+}
+
+
+h1 {
+    width: 96%;
+    text-align: center;
+    font-size: 25px;
+    padding: 25.5px;
+    border: 2px solid white;
+    background: repeating-linear-gradient(45deg, green, green 1px, darkgreen 1px, darkgreen 2px);
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
+}
+
+.free {
+    width: 20%;
+    size: 18px;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    border-left: 5px solid darkgreen;
+    line-height: auto;
+    font-weight: 10px;
+    color: white;
+    height: auto;
+    background: green;
+    padding: 0px 10px;
+}
+
+.used {
+    width: 20%;
+    size: 18px;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    line-height: auto;
+    font-weight: 10px;
+    color: white;
+    height: auto;
+    padding: 0px 10px;
+    border-left: 5px solid darkred;
+    background: red;
+}
+
+input[text] {
+    padding:5px;
+    border:2px solid #ccc;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: ghostwhite;
+    height: 300px;
+    width: 400px;
+}
+
+input[text]:focus {
+    background: cornsilk;
+}
+
+
