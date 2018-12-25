@@ -15,7 +15,7 @@ $options = array(1=>$row['option1'], 2=>$row['option2'], 3=>$row['option3'], 4=>
     <h3> <?php echo $question; ?> </h3>
     <?php
         foreach ($options as $key=>$value) { ?>
-           <p> <button value="<?php echo $key;?>" > <?php echo $value; ?> </button> </p>
+           <p> <input type="radio" id="<?php echo $key; ?>" name="radio" value="<?php echo $key;?>" > <label for="<?php echo $key; ?>" > <?php echo $value; ?> </label> </p>
             <?php }
 ?>
 
