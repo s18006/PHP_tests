@@ -30,22 +30,30 @@ class quizClass {
         $stt = $db->prepare($query_amount_questions);
         $stt->execute();
         $this->amountQuestions = $stt->rowCount();
+        return $this->amountQuestions;
+    }
+
+    public function randomSequence($length) {
+        $numbers = range(1,self::calcQuizRows());
+        shuffle($numbers);
+        for ($i = 0; $i < $length; $i++) {
+            array_push($this->options, $numbers[$i]);
+        }
+        return $this->options;
     }
 
     public function generateQuiz() {
-        if ($this->amountQuestions == 0) {
-            self::calcQuizRows();
+        if (count($this->options) == 0) {
+            self::randomSequence(3);
         }
         $query_row = "SELECT * FROM quiz WHERE id=?";
         $db = self::connection();
         $stt = $db->prepare($query_row);
-        $rdm_number = rand(1, $this->amountQuestions);
-        $stt->bindParam(1, $rdm_number, PDO::PARAM_INT);
+        $stt->bindParam(1, $this->options[0], PDO::PARAM_INT);
         $stt->execute();
         $row = $stt->fetch(PDO::FETCH_ASSOC);
+        array_shift($this->options);
         return $row;
-
-
     }
 
 }
