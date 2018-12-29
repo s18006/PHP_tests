@@ -5,10 +5,13 @@ function secondPassed() {
     if (remainingSeconds < 10) {
         remainingSeconds = "0" + remainingSeconds;
     }
-    document.getElementById('countdown').innerHTML = minutes + ":" + remainingSeconds;
+  document.getElementById('countdown').innerHTML = minutes + ":" + remainingSeconds;
+    if (seconds == 5) {
+      document.getElementById('countdown').className = 'red';
+    }
     if (seconds == 0) {
         clearInterval(countdownTimer);
-        document.getElementById('countdown').innerHTML = "Game Over";
+        document.getElementById('countdown').innerHTML = 'Game Over';
     } else {
         seconds--;
     }

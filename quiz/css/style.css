@@ -64,3 +64,13 @@ input[type=radio]:checked + label {
     background: #ccc;
 }
 
+.timer {
+    padding: 10px;
+
+}
+.red {
+    padding: 10px;
+    background: white; 
+    color: red;
+    border: 1px solid red;
+}
