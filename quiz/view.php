@@ -9,7 +9,7 @@ include_once('modell.php');
     <html>
         <head>
             <script src="js/countdown.js"></script>
-            <link type="text/css" rel="stylesheet" href="css/style.css">
+            <link type="text/css" rel="stylesheet" href="css/viewstyle.css">
         </head>
     <body>
     <p> Remaining time: <span id="countdown" class="timer" ></span> </p>
