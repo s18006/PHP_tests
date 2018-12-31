@@ -15,7 +15,7 @@ include_once('modell.php');
     <p> Remaining time: <span id="countdown" class="timer" ></span> </p>
     <p> Life: <?php echo $_SESSION['counter']; ?> </p>
 
-    <form action="view.php" method="POST">
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
 
         <h3> <?php echo $question; ?> </h3>
         <?php
