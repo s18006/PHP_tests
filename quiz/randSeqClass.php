@@ -25,6 +25,13 @@ class randSeqClass extends connectionClass {
             array_push($this->options, $numbers[$i]);
         }
         return $this->options;
+     }
+
+     public function clearTable() {
+        $query_row = "DELETE FROM quiz_result";
+        $db = connectionClass::connection();
+        $stt = $db->prepare($query_row);
+        $stt->execute();
     }
 
 }

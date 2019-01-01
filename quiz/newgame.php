@@ -17,6 +17,7 @@ include_once ('randSeqClass.php');
 $randSeq = new randSeqClass ();
 $randSeq -> setPDO_datas('mysql:dbname=newtables;host=localhost;charset=utf8', 'testuser', '0808');
 $randSeq -> connection();
+$randSeq -> clearTable(); //clear the last game result
 $randSeq -> setLengthOfQuiz(5);
 //define random sequence as session array
 $_SESSION['randSeq'] = $randSeq->randomSequence();

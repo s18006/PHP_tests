@@ -1,7 +1,11 @@
 <?php
 header ('Content-Type: text/html; charset="UTF-8"');
 session_start();
-$table_list = array('ID'=>'', 'ゲームタイム'=>'', '答えの合計'=>'', '正解'=>'', '不正解'=>'');
+include_once ('quizResultClass.php');
+$test = new quizResultClass();
+$test -> setPDO_datas('mysql:dbname=newtables;host=localhost;charset=utf8', 'testuser', '0808');
+$table_data = $test->downloadResult();
+$table_list = array('ID'=>1, 'ゲームタイム'=>$table_data[0]. '秒', '答えの合計'=>$table_data[1], '正解'=>$table_data[2], '不正解'=>$table_data[3]);
 
 ?>
 
@@ -14,9 +18,12 @@ $table_list = array('ID'=>'', 'ゲームタイム'=>'', '答えの合計'=>'', '
     <body>
 
 <h1> ゲームオーバー </h1>
-<h2> 結果 </h2>
 
-<table border="1">
+<table>
+    <tr>
+        <th colspan="2"> ゲーム結果 </th>
+    </tr>
+
 <?php
 foreach ($table_list as $key => $value) {
 ?>
@@ -28,7 +35,7 @@ foreach ($table_list as $key => $value) {
 }
 ?>
 </table>
-<input type="button" onclick="window.location.href='newgame.php'" value="新しゲームスタート"/>
+<input type="button" onclick="window.location.href='newgame.php'" value="EXIT"/>
     </body>
 
 </html>

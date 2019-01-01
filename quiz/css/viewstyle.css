@@ -99,4 +99,72 @@ button:hover{
 button:active {
   transform: translateY(6px);
 }
+/*result.php settings */
+
+@keyframes color_change {
+  0%   {color: #fff;}
+  50%  {color: #ddd;}
+  100% {color: #4CAF50;}
+}
+
+@keyframes show {
+ 0% {color: #fff;}
+ 100% {color: #000;}
+}
+
+
+h1 {
+    font-size: 18px;
+    text-align: center;
+    color: #4CAF50;
+    animation-name: color_change;
+    animation-duration: 2s;
+}
+
+table {
+    width: 60%;
+    border-collapse: collapse;
+    margin: 0 20% 0 20%;
+}
+
+th, td {
+    padding: 20px;
+    text-align: center;
+}
+
+th {
+        background: linear-gradient(lightgreen,#4CAF50,#4CAF50);
+        color: white;
+}
+
+tr:nth-child(odd){
+    background-color: white;
+    animation-name: show;
+    animation-duration: 4s;
+}
+tr:nth-child(even){
+    background-color: #f2f2f2;
+    animation-name: show;
+    animation-duration: 2s;
+}
+
+input[type=button] {
+    border-radius: 50%;
+    border: 1px solid green;
+    font-size: 12px;
+    font-weight: bolder;
+    background: linear-gradient(white, Silver);
+    width: 100px;
+    height: 100px;
+    margin: 5% 47.5% 0 47.5%;
+    transition: 1.5s;
+}
+
+input[type=button]:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    background: linear-gradient(45grad, green,darkgreen);
+    color: white; font-weight: bold;
+    transform: rotate(360deg);
+}
+
 
