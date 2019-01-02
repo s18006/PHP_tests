@@ -1,15 +1,14 @@
 
-
 <?php
 session_start();
 header('Content-Type: text/html; charset="UTF-8"');
-include_once ('randSeqClass.php');
+require_once 'classes/randSeqClass.php';
 ?>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <link style="text/css" rel="stylesheet" href="css/viewstyle.css">
+        <link style="text/css" rel="stylesheet" href="css/view_style.css">
     </head>
     <body>
 <?php
@@ -27,8 +26,11 @@ $_SESSION['idx'] = 0;
 $_SESSION['counter'] = 3;
 
 ?>
-<button onclick="window.location.href='view.php'"> ゲームスタート</button>
 
+<form action="view.php" method="POST">
+<input type="hidden" name="newgame" value="newgame"/>
+<input type="submit" class="newgameBtn" value="ゲームスタート"/>
+</form>
     </body>
 </html>
 

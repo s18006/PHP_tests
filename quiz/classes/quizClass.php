@@ -22,14 +22,15 @@ class quizClass extends connectionClass {
         return $row;
     }
 
-    public function answerCheck($idx, $db_answer, $user_answer) {
-        if ($db_answer != hash('sha256', json_encode($user_answer))) {
+    public function answerCheck($idx, $db_answer, $user_answer, $life) {
+        if ($db_answer !== hash('sha256', json_encode($user_answer))) {
             self::uploadResult($idx, 0);
-            return false;
+            $life--;
+            return $life;
         }
         else {
             self::uploadResult($idx, 1);
-            return true;
+            return $life;
         }
     }
 }

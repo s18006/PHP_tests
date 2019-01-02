@@ -1,4 +1,4 @@
-let seconds = 15;
+var seconds = 10;
 function secondPassed() {
     let minutes = Math.round((seconds - 30)/60);
     let remainingSeconds = seconds % 60;
@@ -10,10 +10,10 @@ function secondPassed() {
     if (seconds == 5) {
       countdown.className = 'red';
     }
-    if (seconds == 0) {
-      return window.location.href="result.php";
-    } else {
-        seconds--;
+  if (seconds == 0) {
+    return window.location.href="result.php";
+  } else {
+    seconds--;
     }
 }
 
