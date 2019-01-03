@@ -68,10 +68,21 @@ input[type=radio]:checked + label {
     padding: 10px;
 
 }
+
+@keyframes alarm {
+ 0% {color: #ff0000;}
+ 25% {color: #fff;}
+ 50% {color: #ff0000;}
+ 75% {color: #fff;}
+ 100% {color: #ff0000;}
+}
+
 .red {
     padding: 10px;
-    background: white; 
+    background: white;
     color: red;
+    animation-name: alarm;
+    animation-duration: 0.5s;
     border: 1px solid red;
 }
 

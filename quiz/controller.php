@@ -1,14 +1,19 @@
 <?php
-require_once 'classes/quizClass.php';
-require_once 'classes/quizResultClass.php';
-require_once 'classes/randSeqClass.php';
+//autoload the classes from classes folder...
+function myAutoload($class_name) {
+  require_once 'classes/' . $class_name . '.php';
+}
+spl_autoload_register('myAutoload');
 
-if (htmlspecialchars($_SERVER['REQUEST_URI']) === '/else/quiz/newgame.php') {
+//separate codes by uri
+$action = explode('/else/quiz/', htmlspecialchars($_SERVER['REQUEST_URI']))[1];
+//if new game starts...
+if ($action === 'newgame.php') {
     $randSeq = new randSeqClass ();
     $randSeq -> setPDO_datas('mysql:dbname=newtables;host=localhost;charset=utf8', 'testuser', '0808');
     $randSeq -> connection();
     $randSeq -> clearTable(); //clear the last game result
-    $randSeq -> setLengthOfQuiz(5);
+    $randSeq -> setLengthOfQuiz(8); //length of play (number of questions)
     //define random sequence as session array
     $_SESSION['randSeq'] = $randSeq->randomSequence();
     //define index as session in order to change the question and answer options
@@ -17,8 +22,8 @@ if (htmlspecialchars($_SERVER['REQUEST_URI']) === '/else/quiz/newgame.php') {
     $_SESSION['counter'] = 3;
 }
 
-
-if (htmlspecialchars($_SERVER['REQUEST_URI']) === '/else/quiz/view.php') {
+//if game is played...
+if ($action === 'view.php') {
     $test = new quizClass();
     $length = count($_SESSION['randSeq']);
 
@@ -55,7 +60,8 @@ if (htmlspecialchars($_SERVER['REQUEST_URI']) === '/else/quiz/view.php') {
     $options = array(1=>$row['option1'], 2=>$row['option2'], 3=>$row['option3'], 4=>$row['option4']);
 }
 
-if (htmlspecialchars($_SERVER['REQUEST_URI']) === '/else/quiz/result.php') {
+//if game is over...
+if ($action === 'result.php') {
     //download result of game from database...
     $result = new quizResultClass();
     $result -> setPDO_datas('mysql:dbname=newtables;host=localhost;charset=utf8', 'testuser', '0808');
