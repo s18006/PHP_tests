@@ -1,8 +1,24 @@
 <?php
 require_once 'classes/quizClass.php';
 require_once 'classes/quizResultClass.php';
+require_once 'classes/randSeqClass.php';
 
-if (isset($_POST['newgame']) || isset($_POST['answer'])) {
+if (htmlspecialchars($_SERVER['REQUEST_URI']) === '/else/quiz/newgame.php') {
+    $randSeq = new randSeqClass ();
+    $randSeq -> setPDO_datas('mysql:dbname=newtables;host=localhost;charset=utf8', 'testuser', '0808');
+    $randSeq -> connection();
+    $randSeq -> clearTable(); //clear the last game result
+    $randSeq -> setLengthOfQuiz(5);
+    //define random sequence as session array
+    $_SESSION['randSeq'] = $randSeq->randomSequence();
+    //define index as session in order to change the question and answer options
+    $_SESSION['idx'] = 0;
+    //define 3life points
+    $_SESSION['counter'] = 3;
+}
+
+
+if (htmlspecialchars($_SERVER['REQUEST_URI']) === '/else/quiz/view.php') {
     $test = new quizClass();
     $length = count($_SESSION['randSeq']);
 
@@ -39,7 +55,7 @@ if (isset($_POST['newgame']) || isset($_POST['answer'])) {
     $options = array(1=>$row['option1'], 2=>$row['option2'], 3=>$row['option3'], 4=>$row['option4']);
 }
 
-else {
+if (htmlspecialchars($_SERVER['REQUEST_URI']) === '/else/quiz/result.php') {
     //download result of game from database...
     $result = new quizResultClass();
     $result -> setPDO_datas('mysql:dbname=newtables;host=localhost;charset=utf8', 'testuser', '0808');

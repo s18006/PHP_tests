@@ -1,7 +1,7 @@
 <?php
 header ('Content-Type: text/html; charset="UTF-8"');
 session_start();
-require_once 'modell.php';
+require_once 'controller.php';
 ?>
 
 <!DOCTYPE html>
@@ -9,15 +9,12 @@ require_once 'modell.php';
     <head>
         <link rel="stylesheet" type="text/css" href="css/view_style.css">
     </head>
-
     <body>
-
 <h1> ゲームオーバー </h1>
 <table>
     <tr>
         <th colspan="2"> ゲーム結果 </th>
     </tr>
-
 <?php
 foreach ($table_list as $key => $value) {
 ?>
@@ -31,5 +28,4 @@ foreach ($table_list as $key => $value) {
 </table>
 <input type="button" onclick="window.location.href='newgame.php'" value="終了"/>
     </body>
-
 </html>
