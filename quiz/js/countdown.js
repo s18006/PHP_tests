@@ -1,4 +1,4 @@
-var seconds = 10;
+let seconds = 30;
 function secondPassed() {
     let minutes = Math.round((seconds - 30)/60);
     let remainingSeconds = seconds % 60;
