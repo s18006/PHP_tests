@@ -2,3 +2,6 @@ create table quiz (id int AUTO_INCREMENT primary key not null, question VARCHAR 
 
 CREATE TABLE quiz_result (id INT NOT NULL, right_answer INT NOT NULL, play_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP);
 
+then
+
+run tabla_quiz.php
