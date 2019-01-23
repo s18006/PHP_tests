@@ -33,12 +33,12 @@ if ($action === 'view.php') {
 
     //setting start time ...
     if (isset($_POST['newgame'])) {
-        $test -> uploadResult(0, 0);
+        $test -> uploadResult(0, 0, '', '');
     }
 
     if (isset($_POST['answer'])) {
         //if the answer is not correct, one life will be lost
-        $_SESSION['counter'] = $test->answerCheck($_SESSION['idx'], $_POST['answer'], $_POST['radio'], $_SESSION['counter']);
+        $_SESSION['counter'] = $test->answerCheck($_SESSION['idx'], $_POST['answer'], $_POST['question'], $_POST['radio'], $_SESSION['counter']);
         //if life is 0, the game is over...
         if ($_SESSION['counter'] === 0) {
         echo "<script> window.location.href='result.php'; </script>";
@@ -67,6 +67,8 @@ if ($action === 'result.php') {
     $result -> setPDO_datas('mysql:dbname=newtables;host=localhost;charset=utf8', 'testuser', '0808');
     $table_data = $result->downloadResult();
     $table_list = array('ID'=>1, 'ゲームタイム'=>$table_data[0]. '秒', '答えの合計'=>$table_data[1], '正解'=>$table_data[2], '不正解'=>$table_data[3]);
-    //table_data[0] = playtime, [1] = total of answers, [2] =right answers, [3] = wrong answers
+    $user_answers = $result -> userAnswers($table_data[1]);
+    $user_answers_length = count($user_answers);
 }
+
 ?>

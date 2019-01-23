@@ -16,6 +16,7 @@ require_once 'controller.php';
 
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" method="POST">
         <h3> <?php echo $question; ?> </h3>
+        <input type="hidden" name="question" value="<?php echo $question; ?>"/>
         <?php foreach ($options as $key=>$value) { ?>
            <p>
                <input type="radio" id="<?php echo $key; ?>" name="radio" value="<?php echo $value;?>"  required>
