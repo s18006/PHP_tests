@@ -39,15 +39,11 @@ class tableCreatorClass {
                 if (!empty($key)) {
                     $type = explode('=', $key)[0];
                     $value = explode('=', $key)[1];
-                    if ($type ==='id') {
-                        $result .= 'id="'. $value .'" ';
+                    if ($type ==='req') {
+                        $result .= $value .' ';
                     }
-                    if ($type === 'name') {
-                        $result .= 'name="'. $value .'" ';
-                    }
-
-                    if ($type === 'class') {
-                        $result .= 'class="' .$value .'" ';
+                    else {
+                        $result .= self::formatSet($type, $value);
                     }
                 }
             }
@@ -55,17 +51,18 @@ class tableCreatorClass {
         else if (!is_array($id) && !empty($id)) {
             $type = explode('=', $id)[0];
             $value = explode('=', $id)[1];
-            if ($type === 'id') {
-                $result = 'id="'. $value .'" ';
+            if ($type === 'req') {
+                $result = $value . ' ';
             }
-            if ($type === 'name') {
-                $result = 'name="'. $value .'" ';
-            }
-            if ($type === 'class') {
-                $result = 'class="' .$value .'" ';
+            else {
+                $return = self::formatSet($type, $value);
             }
         }
         return $result;
+    }
+
+    public function formatSet($type, $value) {
+        return $type.'="'.$value.'" ';
     }
 }
 

@@ -11,10 +11,11 @@ spl_autoload_register('myAutoload');
 $test = new createElementClass();
 
 echo $test -> createNewElement('newTest', 'p', 'class=id');
+
 echo $test -> createNewElement('ok', 'h1', 'class=h1');
 
 $th_tags = $test -> createNewElement(
-    $test->createNewElement(array('test1', 'test2', 'test3'), 'th', 'class=th_row'), 'tr', 'class=th_row');
+    $test->createNewElement(array('test1', 'test2', 'test3'), 'th', array('class=th_row', 'req=disabled')), 'tr', 'class=th_row');
 
 $td_tags = $test->createNewElement(
    $test->createNewElement(
@@ -23,4 +24,12 @@ $td_tags = $test->createNewElement(
 );
 echo $test ->createNewElement(array($th_tags, $td_tags), 'table', 'id=table');
 
+$select_content = $test -> createNewElement(
+        array('Search'=>array('value=search', 'id=search'), 'Find'=>array('value=find', 'id=find')), 'select', array('db=find', 'name=test_select[]')
+);
+
+echo $test -> createNewElement($select_content, 'p', '');
+echo $test -> createNewElement(array('Move', "window.location.href='test2.php'"), 'button', 'class=btn');
+
+echo $test -> createNewElement(':)', 'input-text', 'req=disabled');
 ?>

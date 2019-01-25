@@ -93,21 +93,57 @@ class createElementClass extends tableCreatorClass {
         $result .= $onclick_content . $id_content .'> ' .$value_content . '</button>';
         return $result;
     }
-
-    //a html tag id, class es name kitoltesehez (id array 1. eleme, name 2. eleme, class 3. eleme)
-
-    public function createOption($key, $value) {
-        $result = '<option value="'. htmlspecialchars($key).'">'. htmlspecialchars($value) .'</option>';
+    //input_select array(name=?, and db =?) or name=?
+    //input option array($key(ami a tagok kozott jelenik meg) => array(...))
+    public function createSelect($input_option, $input_select) {
+        $input_select_pure = self::dbFilter($input_select);
+        $select_content = self::idFiller($input_select_pure);
+        $checkdata = self::dbElementFinder($input_select);
+        $option_content = self::createOption($checkdata, $input_option);
+        $result = '<select '. $select_content.'>'. $option_content . '</select>';
         return $result;
     }
 
-    public function createSelect($input, $id) {
-        $result = array('<select id="'.$id.'">');
+    public function createOption($checkdata, $input) {
+        $result = "";
         foreach ($input as $key => $value) {
-            $result[] = self::createOption($key, $value);
+            $value_content = self::idFiller($value);
+            if (in_array($checkdata, $value)) {
+                $value_content .= self::idFiller('req=selected');
+            }
+            $result .= '<option ' .$value_content . '>'.$key.'</option>';
         }
-        $result[] = '</select>';
         return $result;
+    }
+
+    public function dbElementFinder($input) {
+        $result = '';
+        if (is_array($input)) {
+            foreach ($input as $key) {
+                if (substr($key, 0, 2) === 'db') {
+                    $result = 'value='. explode('=', $key)[1];
+                }
+            }
+        }
+        if (!is_array($input) && substr($input, 0, 2) === 'db') {
+            $result = 'value=' .explode('=', $input)[1];
+        }
+        return $result;
+    }
+
+    public function dbFilter($input) {
+        if (is_array($input)) {
+            for ($i = 0; $i < count($input); $i++) {
+                 if (substr($input[$i], 0, 2) === 'db') {
+                     unset($input[$i]);
+                }
+            }
+            $input = array_values($input);
+        }
+        if (!is_array($input) && substr($input, 0, 2) === 'db') {
+            $input == '';
+        }
+        return $input;
     }
 }
 
