@@ -1,0 +1,26 @@
+
+table, tr, th, td {
+    border-collapse: collapse;
+    border: 1px solid green;
+    padding: 10px;
+}
+
+.th_row {
+    background: lightgreen;
+    color: white;
+}
+
+.td1 {
+    background: darkgreen;
+    color: white;
+}
+
+.td2 {
+    background: red;
+    color: white;
+}
+
+.td3 {
+    background: blue;
+    color: white;
+}
