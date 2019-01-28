@@ -35,7 +35,31 @@ class quizResultClass extends connectionClass {
         return $result;
     }
 
+    public function newQuestionLIst($quiz_list) {
+        $answer_list = array();
+        $value = 0;
+        $query_row = "SELECT right_answer FROM quiz_result where id>?";
+        $db = connectionClass::connection();
+        $stt = $db -> prepare($query_row);
+        $stt -> bindParam(1, $value, PDO::PARAM_INT);
+        $stt -> execute();
+        $stt -> bindColumn(1, $temp);
+        while ($row = $stt-> fetch()) {
+            $answer_list[] = $row[0];
+        }
+        $result = self::newQuestionListSet($quiz_list, $answer_list);
+        return $result;
+    }
 
+    public function newQuestionListSet($quiz_list, $answer_list) {
+        foreach ($answer_list as $key => $value) {
+            if ($value == 1) {
+                unset($quiz_list[$key]);
+            }
+        }
+        $quiz_list = array_values($quiz_list);
+        return $quiz_list;
+    }
 }
 
 

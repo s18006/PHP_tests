@@ -6,16 +6,22 @@ function myAutoload($class_name) {
 spl_autoload_register('myAutoload');
 
 //separate codes by uri
-$action = explode('/else/quiz/', htmlspecialchars($_SERVER['REQUEST_URI']))[1];
+$uri_split = explode('/', htmlspecialchars($_SERVER['REQUEST_URI']));
+$action = end($uri_split);
+
 //if new game starts...
 if ($action === 'newgame.php') {
-    $randSeq = new randSeqClass ();
-    $randSeq -> setPDO_datas('mysql:dbname=newtables;host=localhost;charset=utf8', 'testuser', '0808');
-    $randSeq -> connection();
-    $randSeq -> clearTable(); //clear the last game result
-    $randSeq -> setLengthOfQuiz(8); //length of play (number of questions)
-    //define random sequence as session array
-    $_SESSION['randSeq'] = $randSeq->randomSequence();
+        $randSeq = new randSeqClass ();
+        $randSeq -> setPDO_datas('mysql:dbname=newtables;host=localhost;charset=utf8', 'testuser', '0808');
+        $randSeq -> connection();
+        $randSeq -> clearTable(); //clear the last game result
+    if (!isset($_SESSION['repeat_game']) || (isset($_SESSION['repeat_game']) && count($_SESSION['repeat_game']) === 0)) {
+        $randSeq -> setLengthOfQuiz(5); //length of play (number of questions)
+        //define random sequence as session array
+        $_SESSION['randSeq'] = $randSeq->randomSequence();
+    } else {
+        $_SESSION['randSeq'] = $_SESSION['repeat_game'];
+    }
     //define index as session in order to change the question and answer options
     $_SESSION['idx'] = 0;
     //define 3life points
@@ -69,6 +75,7 @@ if ($action === 'result.php') {
     $table_list = array('ID'=>1, 'ゲームタイム'=>$table_data[0]. '秒', '答えの合計'=>$table_data[1], '正解'=>$table_data[2], '不正解'=>$table_data[3]);
     $user_answers = $result -> userAnswers($table_data[1]);
     $user_answers_length = count($user_answers);
+    $_SESSION['repeat_game'] = $result -> newQuestionList($_SESSION['randSeq']);
 }
 
 ?>

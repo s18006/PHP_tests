@@ -45,6 +45,6 @@ foreach ($table_list as $key => $value) {
     </tr>
     <?php } ?>
 </table>
-<input type="button" onclick="window.location.href='newgame.php'" value="終了"/>
+<input type="button" onclick="window.location.href='newgame.php'" value="<?php if (count($_SESSION['repeat_game']) === 0) { echo '終了'; } else { echo 'QUIZを見直す'; }?>"/>
     </body>
 </html>
