@@ -12,7 +12,7 @@ class newgameClass extends dbManagerClass {
     }
 
     public function calcQuizRows() {
-        $query_title = "SELECT COUNT(id) FROM quiz2 WHERE id > ?";
+        $query_title = "SELECT COUNT(id) FROM quiz3 WHERE id > ?";
         $amountQuestions = self::downloadOneTitle($query_title, 0, 'i');
         return $amountQuestions;
     }
@@ -32,7 +32,7 @@ class newgameClass extends dbManagerClass {
             $maxvalue = count($this -> repeatSeq) - 1;
             $idx = 0;
             $val = 0;
-            while (count(self::getSession('randSeq')) <= $this -> lengthOfQuiz - 1) {
+            while (count(self::getSession('randSeq')) <= $this -> lengthOfQuiz) {
                 if (is_array($this -> repeatSeq) && $idx <= $maxvalue) {
                     self::setSessionAsArray('randSeq', $idx, $this->repeatSeq[$idx]);
                     unset($this -> repeatSeq[$idx]);
@@ -48,7 +48,7 @@ class newgameClass extends dbManagerClass {
             }
         }
         else {
-            for ($i = 0; $i < $this -> lengthOfQuiz - 1; $i++) {
+            for ($i = 0; $i < $this -> lengthOfQuiz; $i++) {
                 self::setSessionAsArray('randSeq', $i, $numbers[$i]);
             }
         }

@@ -6,3 +6,8 @@ CREATE TABLE quiz_result (id INT NOT NULL, right_answer INT(3) NOT NULL, questio
 then
 
 run tabla_quiz.php
+
+hash method of variable elements:
+    - number: hash('sha256', json_encode(***)),
+    - japanese character: hash('sha256', json_encode('***')),
+    - alphabetical character: hash('sha256', json_encode(strtolower('***')))
