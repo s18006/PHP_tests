@@ -66,6 +66,11 @@ class quizClass extends dbManagerClass {
         return $result;
     }
 
+    public function uploadStartTime() {
+        $query_row = "INSERT INTO quiz_result (id, right_answer, question, user_answer) VALUES (?, ?, ?, ?)";
+        return self::insertResult($query_row, array(0, '', '', ''), 'isss');
+    }
+
     public function getSession($name) {
         return $_SESSION[$name];
     }

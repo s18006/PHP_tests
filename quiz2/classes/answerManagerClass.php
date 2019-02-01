@@ -22,11 +22,11 @@ class answerManagerClass extends quizClass {
         }
 
         if ($db_answer !== $user_answer_hashed) {
-             self::uploadResult('不正解', $question, $user_answer);
+             self::uploadResult(0, $question, $user_answer);
              self::setSession('life', self::getSession('life')-1);
         }
         else {
-            self::uploadResult('正解', $question, $user_answer);
+            self::uploadResult(1, $question, $user_answer);
         }
     }
 

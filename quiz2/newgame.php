@@ -13,8 +13,8 @@ echo $create -> pageStart(
 );
 
 $user_name = '';
-if (isset($_SESSION['user_nick_name'])) {
-    $user_name = $_SESSION['user_nick_name'];
+if (isset($_SESSION['user_name'])) {
+    $user_name = $conn ->getSession('user_name');
 }
 
 echo $create -> createNewTag(array(

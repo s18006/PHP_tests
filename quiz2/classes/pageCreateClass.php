@@ -134,7 +134,7 @@ class pageCreateClass extends createElementClass {
     }
 
     public function createNewTable($tag) {
-        if (is_array($tag[0]) && count($tag) > 1) {
+        if (is_array($tag[0]) && count($tag) >= 1) {
             if (in_array('type=th', $tag[0])) {
                 $this -> th_content = self::formatTablePart($tag);
                 return $this -> th_content;
