@@ -8,7 +8,7 @@ $create = new pageCreateClass();
 
 echo $create -> pageStart(
     $head_part = array('title=Result', 'link_css=css/view_style.css'),
-    $form_part = ''
+    $form_part = array('action=newgame.php', 'method=post')
 );
 
 echo $create -> createNewTag(array('type=h1', 'class=game_over', 'value=ゲームオーバー '));
@@ -16,7 +16,8 @@ echo $create -> createNewTag(array('type=h1', 'class=game_over', 'value=ゲー�
 $result = new quizResultClass();
 echo $result -> createFullGameDataTable();
 echo $result -> createQADATATable();
-$value = 'QUIZを見直す';
-echo $create -> createNewInputButton(array('value='.$value, 'nav=newgame.php'));
+echo $create -> createNewTag(array('type=input-hidden', 'value='.$result -> newQuestionListSet(), 'name=repeatSeq'));
+echo $create -> createNewTag(array('type=input-submit', 'value=終了', 'class=endgame', 'nav=newgame.php'));
+echo $create -> formEnd();
 echo $create -> pageEnd();
 ?>

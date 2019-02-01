@@ -4,8 +4,14 @@ $conn = new controllerClass();
 
 //require_once 'controller.php';
 
+//if it exists, get last game values
+if (isset($_POST['repeatSeq'])) {
+    $repeatSeq = $_POST['repeatSeq'];
+} else {
+    $repeatSeq = '';
+}
 $create = new pageCreateClass();
-$newgame = new newgameClass();
+$newgame = new newgameClass($repeatSeq);
 
 echo $create -> pageStart(
     $head_part = array('title=New Game', 'link_css=css/view_style.css'),
@@ -16,7 +22,6 @@ $user_name = '';
 if (isset($_SESSION['user_name'])) {
     $user_name = $conn ->getSession('user_name');
 }
-
 echo $create -> createNewTag(array(
     $header_text = array('type=h1', 'value=ARE YOU READY?', 'inside=header', 'class=header_text'),
     $alert = array('type=p', 'value=氏名を記入して下さい', 'inside=div', 'inside-class=div_alert', 'class=alert'),

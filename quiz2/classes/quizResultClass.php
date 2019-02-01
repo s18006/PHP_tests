@@ -66,9 +66,6 @@ class quizResultClass extends dbManagerClass {
         return self::createNewTable(array('type=table', 'class=table1'));
     }
 
-
-
-
     public function getSession($name) {
         return $_SESSION[$name];
     }
@@ -84,33 +81,29 @@ class quizResultClass extends dbManagerClass {
     public function setSessionIfArray($name, $idx, $value) {
         return $_SESSION[$name][$idx] = $value;
     }
-/*
-    public function newQuestionLIst($quiz_list) {
-        $answer_list = array();
-        $value = 0;
-        $query_row = "SELECT right_answer FROM quiz_result where id>?";
-        $db = connectionClass::connection();
-        $stt = $db -> prepare($query_row);
-        $stt -> bindParam(1, $value, PDO::PARAM_INT);
-        $stt -> execute();
-        $stt -> bindColumn(1, $temp);
-        while ($row = $stt-> fetch()) {
-            $answer_list[] = $row[0];
-        }
-        $result = self::newQuestionListSet($quiz_list, $answer_list);
-        return $result;
+
+    public function unsetSession($name) {
+        unset($_SESSION[$name]);
     }
 
-    public function newQuestionListSet($quiz_list, $answer_list) {
-        foreach ($answer_list as $key => $value) {
-            if ($value == 1) {
-                unset($quiz_list[$key]);
+    public function newQuestionListSet() {
+        $quiz_list = self::getSession('randSeq');
+        for ($i = 0; $i < count($this->userAnswers_list); $i++) {
+            if ($this->userAnswers_list[$i][2] == 1) {
+                unset($quiz_list[$i]);
             }
         }
         $quiz_list = array_values($quiz_list);
-        return $quiz_list;
+        $result = '';
+        //convert the quiz_list string for input-hidden tag
+        if (count($quiz_list) > 0) {
+            foreach ($quiz_list as $key => $value) {
+                 $result .= $value.",";
+            }
+            $result = substr($result, 0, -1);
+        }
+        return $result;
     }
- */
 }
 
 ?>

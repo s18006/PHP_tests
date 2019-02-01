@@ -278,7 +278,7 @@ tr:nth-child(even){
     animation-duration: 2s;
 }
 
-input[type=button] {
+.endgame {
     border-radius: 50%;
     border: 1px solid green;
     font-size: 12px;
@@ -290,7 +290,7 @@ input[type=button] {
     transition: 1.5s;
 }
 
-input[type=button]:hover {
+.endgame:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     background: linear-gradient(45grad, green,darkgreen);
     color: white; font-weight: bold;
