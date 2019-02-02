@@ -32,12 +32,12 @@ class newgameClass extends dbManagerClass {
             $maxvalue = count($this -> repeatSeq) - 1;
             $idx = 0;
             $val = 0;
-            while (count(self::getSession('randSeq')) <= $this -> lengthOfQuiz) {
+            while (count(self::getSession('randSeq')) < $this -> lengthOfQuiz) {
                 if (is_array($this -> repeatSeq) && $idx <= $maxvalue) {
                     self::setSessionAsArray('randSeq', $idx, $this->repeatSeq[$idx]);
                     unset($this -> repeatSeq[$idx]);
                     $idx++;
-                } else{
+                } else {
                     $val = $val % $this -> lengthOfQuiz;
                     if (!in_array($numbers[$val], self::getSession('randSeq'))) {
                         self::setSessionAsArray('randSeq', $idx, $numbers[$val]);

@@ -2,7 +2,7 @@
 require_once 'dbManagerClass.php';
 
 class quizResultClass extends dbManagerClass {
-    public $result_list = array('ゲームタイム' =>'', '答えの合計'=> '', '正解'=>'', '不正解'=>'');
+    public $result_list = array('ゲームタイム(秒)' =>'', '答えの合計'=> '', '正解'=>'', '不正解'=>'');
     public $userAnswers_list = array();
 
     public function __construct() {
