@@ -21,8 +21,8 @@ class quizClass extends dbManagerClass {
         //quizRow Download from db
         $this -> quizRow = self::generateQuiz();
         //increse the index value for the next page
-        self::setSession('idx', $idx+1);
         self::formatQuizPage();
+        self::setSession('idx', $idx+1);
     }
 
     public function generateQuiz() {
@@ -63,7 +63,7 @@ class quizClass extends dbManagerClass {
         //create a hidden tag and define the coundowns seconds in that
         $countdownTag = self::createNewTag(array('type=input-hidden', 'name=countdownValue', 'id=countdownValue', 'value='.$countdown_seconds));
         //create question tag as h3
-        $question = self::createNewTag(array('value='.$this->quizRow['question'], 'type=h3', 'inside=div', 'inside-class=divQuestion', 'class=question'));
+        $question = self::createNewTag(array('value='. self::getSession('idx') . '/'. count(self::getSession('randSeq')). '. ' . $this->quizRow['question'], 'type=h3', 'inside=div', 'inside-class=divQuestion', 'class=question'));
         $hidden_question = self::createNewTag(array('value='.$this->quizRow['question'], 'type=input-hidden', 'name=question', 'class=hidden'));
         //for comparing the db answer with user answer
         $hidden_answer = self::createNewTag(array('value='.$this->quizRow['answer'], 'name=answer', 'type=input-hidden'));

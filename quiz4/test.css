@@ -1,0 +1,69 @@
+
+table, tr, th, td {
+    border-collapse: collapse;
+    border: 1px solid green;
+    padding: 10px;
+}
+
+.th_row {
+    background: lightgreen;
+    color: white;
+}
+
+.td1 {
+    background: darkgreen;
+    color: white;
+}
+
+.td2 {
+    background: red;
+    color: white;
+}
+
+.td3 {
+    background: blue;
+    color: white;
+}
+
+
+
+input[type=checkbox] + label {
+    display: block;
+    margin: 0.2em;
+    cursor: pointer;
+    padding: 0.3em;
+    width: 100%;
+}
+
+input[type=checkbox] {
+    display: none;
+}
+
+input[type=checkbox] + label:before {
+    content: "\2714";
+    border: 0.1em solid #000;
+    line-height: 20px;
+    border-radius: 0.2em;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    padding: 0.2em 0.2em 0.2em 0.35em;
+    margin-right: 0.2em;
+    color: transparent;
+    transition: .8s;
+}
+
+input[type=checkbox] + label:active:before {
+    transform:scale(0);
+}
+
+input[type=checkbox]:checked + label:before {
+    background-color: #4CAF50;
+    border-color: #4cAF50;
+    color: #fff;
+}
+
+input[type=checkbox]:checked + label {
+    background: #ccc;
+}
+
