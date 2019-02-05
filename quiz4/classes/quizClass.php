@@ -61,7 +61,7 @@ class quizClass extends dbManagerClass {
             $supportText = array('type=p', 'id=supportText', 'class=supportText', 'value=頑張って'.self::getSession('user_name').'さん')));
 
         //create a hidden tag and define the coundowns seconds in that
-        $countdownTag = self::createNewTag(array('type=input-hidden', 'name=countdownValue', 'id=countdownValue', 'value='.$countdown_seconds));
+        $countdownTag = self::createNewTag(array('type=input-hidden', 'name=countdownValue', 'id=countdownValue', 'style=display:none;', 'value='.$countdown_seconds));
         //create question tag as h3
         $question = self::createNewTag(array('value='. self::getSession('idx') . '/'. count(self::getSession('randSeq')). '. ' . $this->quizRow['question'], 'type=h3', 'inside=div', 'inside-class=divQuestion', 'class=question'));
         $hidden_question = self::createNewTag(array('value='.$this->quizRow['question'], 'type=input-hidden', 'name=question', 'class=hidden'));
@@ -77,13 +77,15 @@ class quizClass extends dbManagerClass {
                 $user_content .= self::createNewTag(array('type=img', 'src=images/'.$this->quizRow['id'].'.png', 'value='));
             }
             for ($i = 1; $i <= 4; $i++)  {
+                //define numbers of options and create a hidden input, then add to user_content value
                 $idxOption = 'option'.$i;
                 $user_content .= self::createNewIRadio(array('display='.$this->quizRow[$idxOption], 'name=user_answer', 'id='.$i, 'req=required', 'value='.$this->quizRow[$idxOption], 'inside=div'));
             }
         }
         //if question_type is checkbox, the type of tags are checkbox (id is required part)
         if ($this -> quizRow['question_type'] === 'checkbox') {
-            for ($i = 1; $i <=4; $i++) {
+            $user_content .= self::createNewTag(array('type=input-hidden', 'value='.$this->quizRow['checkbox_options'], 'name=checkbox_options', 'style=display:none;', 'id=checkbox_options'));
+            for ($i = 1; $i <= $this->quizRow['checkbox_length']; $i++) {
                 $idxOption = 'option'.$i;
                 $user_content .= self::createNewCheckbox(array('display='.$this->quizRow[$idxOption], 'name=user_answer[]', 'id='.$i, 'value='.$this->quizRow[$idxOption], 'inside=div'));
             }

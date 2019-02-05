@@ -53,7 +53,7 @@ class createElementClass extends formatElementClass {
             $input = explode('=', $input)[1];
         }
         $value = 'value="' . htmlspecialchars($input) . '" ';
-        $result = $result . $id_content . $value . '></input>';
+        $result = $result . $id_content . $value . '/>';
         return $result;
     }
 
