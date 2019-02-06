@@ -55,8 +55,10 @@ class newgameClass extends dbManagerClass {
     }
 
     public function clearTable() {
-        $query = 'DELETE FROM quiz_result';
-        return self::deletePlease($query, '', '');
+        if (self::getSession('user_name') !== 'notFound') {
+            $query = 'DELETE FROM quiz_result WHERE user_id = ?';
+            return self::deletePlease($query, self::getSession('user_name'), 's');
+        }
     }
 
     public function getSession($name) {

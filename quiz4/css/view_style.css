@@ -74,14 +74,14 @@ h2 {
     font-size: 16px;
 }
 .question {
-    font-size: 28px;
+    font-size: 20px;
 }
 
 .divQuestion {
     margin: auto;
-    margin-top: 30px;
+    margin-top: 20px;
     margin-bottom: 30px;
-    width: 80%;
+    width: 70%;
     text-align: center;
 }
 

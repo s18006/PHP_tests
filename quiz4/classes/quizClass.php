@@ -53,11 +53,17 @@ class quizClass extends dbManagerClass {
                 $form_part = array('open', 'method=post', 'action=self')
             );
         }
-
+        $total_counter_value = '正解：-, 合計: -';
+        if (self::getSession('answer_rate') !== 'notFound') {
+            $total = self::getSessionIfArray('answer_rate', 1);
+            $right = self::getSessionIfArray('answer_rate', 0);
+            $total_counter_value = '正解：'. $right . ', 合計: '. $total .' 正解確率: ' . round($right/$total, 2) . '%';
+        }
         //create life display element
         $timeLabel = self::createNewTag(array(
             $time = array('type=span', 'value=', 'id=countdown', 'class=timer', 'inside-class=timer_text', 'inside-value=Remaining time: ', 'inside=p'),
             $life = array('type=p', 'style=font-size: 16px; font-weight: bold;', 'value=Remaining life: '. self::getSession('life')),
+            $total_counter = array('type=p', 'style=font-weight:bold; width: 260px; background:gray; color:white; font-size:16px;', 'value='.$total_counter_value),
             $supportText = array('type=p', 'id=supportText', 'class=supportText', 'value=頑張って'.self::getSession('user_name').'さん')));
 
         //create a hidden tag and define the coundowns seconds in that
@@ -110,16 +116,24 @@ class quizClass extends dbManagerClass {
     }
 
     public function uploadStartTime() {
-        $query_row = "INSERT INTO quiz_result (id, right_answer, question, user_answer) VALUES (?, ?, ?, ?)";
-        return self::insertResult($query_row, array(0, '', '', ''), 'isss');
+        $query_row = "INSERT INTO quiz_result (user_id, id, right_answer, question, user_answer) VALUES (?, ?, ?, ?, ?)";
+        return self::insertResult($query_row, array(self::getSession('user_name'), 0, '', '', ''), 'sisss');
     }
 
     public function getSession($name) {
-        return $_SESSION[$name];
+        if (isset($_SESSION[$name])) {
+            return $_SESSION[$name];
+        } else {
+            return 'notFound';
+        }
     }
 
     public function getSessionIfArray($name, $idx) {
-        return $_SESSION[$name][$idx];
+        if (isset($_SESSION[$name])) {
+            return $_SESSION[$name][$idx];
+        } else {
+            return 'notFound';
+        }
     }
 
     public function setSession ($name, $value) {
