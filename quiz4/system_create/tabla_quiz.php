@@ -31,16 +31,23 @@ $x = array(
 );
 
 for ($i = 0; $i < count($x); $i++) {
-    $oszlop1 = $x[$i][0];
-    $oszlop2 = $x[$i][1];
-    $oszlop3 = $x[$i][2];
-    $oszlop4 = $x[$i][3];
-    $oszlop5 = $x[$i][4];
-    $oszlop6 = $x[$i][5];
-    $oszlop7 = $x[$i][6];
-    $oszlop8 = $x[$i][7];
-    $oszlop9 = $x[$i][8];
-    $query = "INSERT INTO quiz4 VALUES ('', '$oszlop1', '$oszlop2', '$oszlop3', '$oszlop4', '$oszlop5', '$oszlop6', '$oszlop7', '$oszlop8', '$oszlop9')";
+    $col1 = $x[$i][0];
+    $col2 = $x[$i][1];
+    $col3 = $x[$i][2];
+    $col4 = $x[$i][3];
+    $col5 = $x[$i][4];
+    $col6 = $x[$i][5];
+    $col7 = $x[$i][6];
+    $col8 = $x[$i][7];
+    $col9 = $x[$i][8];
+    $col10 = $x[$i][9];
+    $col11 = $x[$i][10];
+    $col12 = $x[$i][11];
+    $col13 = $x[$i][12];
+
+
+
+    $query = "INSERT INTO quiz4 VALUES ('', '$col1', '$col2', '$col3', '$col4', '$col5', '$col6', '$col7', '$col8', '$col9', '$col10', '$col11', '$col12', '$col13')";
     row_creator($query);
 }
 
