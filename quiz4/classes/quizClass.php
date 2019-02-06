@@ -57,7 +57,7 @@ class quizClass extends dbManagerClass {
         if (self::getSession('answer_rate') !== 'notFound') {
             $total = self::getSessionIfArray('answer_rate', 1);
             $right = self::getSessionIfArray('answer_rate', 0);
-            $total_counter_value = '正解：'. $right . ', 合計: '. $total .' 正解確率: ' . round($right/$total, 2) . '%';
+            $total_counter_value = '正解：'. $right . ', 合計: '. $total .' 正解確率: ' . round($right/$total, 4) * 100 . '%';
         }
         //create life display element
         $timeLabel = self::createNewTag(array(
