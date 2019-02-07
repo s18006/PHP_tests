@@ -354,3 +354,33 @@ tr:nth-child(even){
     font-weight: bold;
 }
 
+.exitBtn {
+    width: 100px;
+    height: 50px;
+    background: firebrick;
+    color: white;
+    border: 1px solid firebrick;
+    border-radius: 8px;
+    float: right;
+    transition: -webkit-animation-duration: 2s;
+    transition: width 2s;
+}
+
+.exitBtn:hover {
+    width: 150px;
+    height: 50px;
+    background: darkgreen;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+}
+
+.byeText {
+    font-size: 40px;
+    margin: auto;
+    margin-top: 200px;
+    text-shadow: 0 12px 16px rgba(0,0,0);
+    padding: 10px;
+}
+

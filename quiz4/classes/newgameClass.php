@@ -1,7 +1,7 @@
 <?php
 require_once 'dbManagerClass.php';
 class newgameClass extends dbManagerClass {
-    public $lengthOfQuiz = 10;
+    public $lengthOfQuiz;
     public $repeatSeq = array();
 
     public function __construct($post) {
@@ -14,6 +14,7 @@ class newgameClass extends dbManagerClass {
     public function calcQuizRows() {
         $query_title = "SELECT COUNT(id) FROM quiz4 WHERE id > ?";
         $amountQuestions = self::downloadOneTitle($query_title, 0, 'i');
+        $this -> lengthOfQuiz = $amountQuestions;
         return $amountQuestions;
     }
 
