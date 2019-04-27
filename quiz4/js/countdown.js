@@ -1,5 +1,5 @@
 
-function secondPassed() {
+const secondPassed = () => {
     let seconds = document.getElementById('countdownValue').value;
     let minutes = Math.round((seconds- 30)/60);
     let remainingSeconds = seconds % 60;

@@ -18,21 +18,26 @@ header {
 header:hover {
     color: ghostwhite;
 }
+
+.searchField-container {
+    width: 98%;
+    padding: 10px;
+    background: ghostwhite;
+    border: 3px solid #ccc;
+    box-shadow: 1px 3px 3px #000;
+}
+
 table {
     border-collapse: collapse;
     width: 95%;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 table, tr, th, td {
-    padding: 10px;
     border-collapse: collapse;
-    border: 1px solid white;
-}
-.countTable table tr td:first-child + td {
-    min-width: 70%;
-    margin: 10px;
+    border: 1px solid #fff;
+    padding: 10px;
 }
 
 
@@ -44,12 +49,17 @@ th {
   color: white;
 }
 
+td {
+    padding: 10px;
+}
+
 input[type=text] {
     padding:5px;
-    width: 90%;
+    width: 98%;
     border:2px solid #ccc;
     -webkit-border-radius: 5px;
     border-radius: 5px;
+    margin: auto;
 }
 
 .container-keyWord {
@@ -64,23 +74,12 @@ input[type=text] {
     padding: 20px;
 }
 
-input[type=date] {
-    border:2px solid #aaa;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-
-
 input[type=number] {
     padding: 5px;
-    width: 90%;
+    width: 20%;
     border:2px solid #ccc;
     -webkit-border-radius: 5px;
     border-radius: 5px;
-
-
 }
 
 
@@ -150,7 +149,6 @@ input[type=button]:active {
 
 select {
     margin: 5px 5px;
-    #background: #4CAF50;
     background: linear-gradient(white, #4CAF50);
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
     -moz-appearance: none;

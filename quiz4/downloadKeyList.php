@@ -9,6 +9,7 @@ if (isset($_POST['keyword']) && !empty($_POST['keyword'])) {
 
     $query_keyList = "SELECT question FROM quiz4 where question like ?";
     $keyList = $db -> downloadParams($query_keyList, $keyword, 's', 1);
+    $create -> createNewTable(array(array('type=th', 'value=もうアップロードされた問題')));
     foreach ($keyList as $key => $value) {
         $create -> createNewTable(array(array('type=td', 'value='.$value[0])));
     }
