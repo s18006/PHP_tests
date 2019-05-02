@@ -1,9 +1,10 @@
 <?php
-class controllerClass {
+
+require_once 'isAuthenticatedClass.php';
+
+class controllerClass extends isAuthenticatedClass {
     public function __construct() {
-        if(!isset($_SESSION)) {
-            session_start();
-        }
+        parent::__construct();
         spl_autoload_register(array($this, 'loader'));
     }
 
@@ -18,7 +19,5 @@ class controllerClass {
     public function getSession($key) {
         return $_SESSION[$key];
     }
-
-
 }
 ?>

@@ -14,16 +14,12 @@ echo $create -> pageStartWithTag(
 //search container
 $search_field = $create -> createNewTag(array(
     $alert_tag = array('type=h3', 'value=まず同じような問題があるかどうかを確認するために、アップロードしたい問題のキーワードを入力して下さい'),
-    $input_tag = array('type=input-text', 'class=keyWord', 'id=keyWord', 'placeholder=キーワード', 'value=', 'onInput=validate()', 'inside=div', 'inside-class=container-keyWord')
+    $input_tag = array('type=input-search', 'class=keyWord', 'id=keyWord', 'placeholder=キーワード', 'value=', 'onInput=validate()', 'inside=div', 'inside-class=container-keyWord')
 ));
-
-$hiddenBtn = $create -> createNewButton(array('id=hiddenElementBtn', 'type=button', 'onclick=hiddenElement()', 'value=隠す', 'inside=div', 'inside-class=container-keyWord'));
-
-$container_hiddenBtn = $create -> createNewTag(array('type=div', 'value='.$hiddenBtn, 'class=container-hiddenBtn'));
 
 $result_text = $create -> createNewTag(array('type=div', 'value=', 'id=result_text'));
 
-echo $create -> createNewTag(array('type=div', 'class=searchField-container', 'value='.$search_field.$container_hiddenBtn.$result_text));
+echo $create -> createNewTag(array('type=div', 'class=searchField-container', 'value='.$search_field.$result_text));
 
 
 //create table content (input field)
@@ -127,8 +123,13 @@ $table_row10 = $create -> createNewTable(array(
 
 echo $create -> createNewTable(array('type=table'));
 
-echo $create -> createNewTag(array('type=input-submit', 'inside=div', 'value=送信'));
+$submitBtn =$create -> createNewTag(array('type=input-submit', 'inside=div', 'value=送信'));
+echo $create -> createNewTag(array('type=div', 'value='.$submitBtn, 'class=Btn-container'));
 
 echo $create -> formEnd();
+
+$backHomeBtn = $create -> createNewButton(array('value=Homeへ戻る', 'class=backHomeBtn', 'nav=index.php'));
+echo $create -> createNewTag(array('type=div', 'value='.$backHomeBtn, 'class=Btn-container'));
+
 echo $create -> pageEnd();
 ?>

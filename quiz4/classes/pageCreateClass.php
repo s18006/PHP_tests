@@ -98,11 +98,12 @@ class pageCreateClass extends createElementClass {
     }
 
     public function formatFirstPart($tag) {
-        $tagList = array('type=img', 'type=div', 'type=p', 'type=span', 'type=h1', 'type=h2','type=h3', 'type=h4', 'type=textarea', 'type=header', 'type=tr', 'type=a');
-        $inputList = array('type=input-text', 'type=input-date', 'type=input-number', 'type=input-hidden', 'type=input-password', 'type=input-tel', 'type=input-email', 'type=input-datetime-local', 'type=input-submit');
+        $tagList = array('type=div', 'type=p', 'type=span', 'type=h1', 'type=h2','type=h3', 'type=h4', 'type=textarea', 'type=header', 'type=tr', 'type=a');
+        $inputList = array('type=input-text', 'type=input-date', 'type=input-number', 'type=input-hidden', 'type=input-password', 'type=input-tel', 'type=input-email', 'type=input-datetime-local', 'type=input-search', 'type=input-submit');
+        $onePartTag = array('type=img');
         $tag = self::tagFilter($tag);
         foreach ($tag as $key => $value) {
-            if (in_array($value, $tagList) || in_array($value, $inputList)) {
+            if (in_array($value, $tagList) || in_array($value, $inputList) || in_array($value, $onePartTag)) {
                 $tagname = substr($value, 5);
                 unset($tag[$key]);
             }
@@ -121,6 +122,9 @@ class pageCreateClass extends createElementClass {
         }
         if (in_array('type='.$tagname, $inputList)) {
             $input = self::fillInputElement($input, $tag, $tagname);
+        }
+        if (in_array('type='.$tagname, $onePartTag)) {
+            $input = self::fillOnePartElement($tag, $tagname);
         }
         //if there is pre text inside of tag
         if (isset($preText)) {

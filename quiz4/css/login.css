@@ -1,0 +1,152 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    font-size: 120%;
+    background: #F8F8FF;
+    font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif;
+}
+
+.header {
+    width: 30%;
+    font-size: 18px;
+    margin: 50px auto 0px;
+    color: white;
+    background: #5F9A40;
+    text-align: center;
+    border: 1px solid #B0C4DE;
+    border-bottom: none;
+    border-radius: 10px 10px 0px 0px;
+    padding: 20px;
+}
+
+.login-container, .content {
+    width: 30%;
+    height: auto;
+    margin: 0px auto;
+    padding: 20px;
+    border: 1px solid #B0C4DE;
+    background: white;
+    border-radius: 0px 0px 10px 10px;
+}
+
+.input-group {
+    margin: 10px 0px 10px 0px;
+    background: #5F9A40;
+    display: flex;
+    width: 100%;
+    height: 50px;
+}
+
+.input-group_submit {
+    margin: 10px 0px 10px 0px;
+    border-radius: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #5F9A40;
+    border-radius: 0;
+    outline: none;
+}
+
+.input-group input:focus {
+    background: lightgreen;
+}
+
+
+.input-group img {
+  padding: 10px;
+  max-width: 30px;
+  text-align: center;
+}
+
+.btn {
+    padding: 10px;
+    font-size: 15px;
+    color: white;
+    background: #888888;
+    border: solid 0.5px white;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: linear-gradient(darkgreen,#5F9A40,#5F9A40,#5F9A40,white);
+    border: solid 0.5px white;
+}
+
+
+.error, .result_textOK {
+    width: 90%;
+    margin: auto;
+    margin-top: 5px;
+    padding: 10px;
+    border-left: 3px solid darkred;
+    background: red;
+    color: white;
+    font-weight: bold;
+    text-align: left;
+    font-size: 16px;
+}
+
+.result_textOK {
+    color: white;
+    background: #5F9A40;
+    border: 1px solid darkgreen;
+}
+
+.success {
+    color: #3c763d;
+    background: #dff0d8;
+    border: 1px solid #3c763d;
+    margin-bottom: 20px;
+}
+
+a {
+    padding: 0 5px;
+    display: inline-block;
+    text-decoration: none;
+    color: darkgreen;
+    cursor: pointer;
+}
+
+a:hover {
+    background: darkgreen;
+    color: white;
+}
+
+@media (max-width: 1000px) {
+
+    body {
+        font-size: 80%; 
+    }
+
+    .header, form, .content {
+        width: 40%;
+    }
+
+    .input-group input {
+        min-width: 40%;
+    }
+}
+
+@media (max-width: 599px) {
+
+    body {
+        font-size: 50%;
+    }
+
+    .header, form, .content {
+        width: 50%;
+    }
+
+    .input-group input {
+        min-width: 60%;
+    }
+}
+
+
+

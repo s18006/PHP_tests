@@ -1,7 +1,12 @@
 <?php
+
+//if user doesn't choose play type and length, send back user to index.php
+if (!isset($_POST['newgame'])) {
+    header('Location: index.php');
+}
+
 require_once 'classes/controllerClass.php';
 $conn = new controllerClass();
-
 //require_once 'controller.php';
 
 //if it exists, get last game values
@@ -18,17 +23,14 @@ echo $create -> pageStart(
     $form_part = array('method=post', 'action=view.php')
 );
 
-$user_name = '';
-if (isset($_SESSION['user_name'])) {
-    $user_name = $conn ->getSession('user_name');
-}
-echo $create -> createNewTag(array(
-    $header_text = array('type=h1', 'value=ARE YOU READY?', 'inside=header', 'class=header_text'),
-    $alert = array('type=p', 'value=自分の学籍番号を記入して下さい', 'inside=div', 'inside-class=div_alert', 'class=alert'),
-    $name_input = array('type=input-text', 'value='.$user_name, 'name=user_name', 'req=required', 'inside=div', 'inside-class=div_name_input', 'pattern=[a-z]{1}[0-9]{5}', 'class=name_input'),
-    $hidden_input = array('type=input-hidden', 'inside=div', 'name=newgame', 'value=newgame'),
-    $submit_btn = array('type=input-submit', 'inside=div', 'inside-class=div_newgameBtn', 'class=newgameBtn', 'value=ゲームスタート')
+$user_name = $_SESSION['username'];
+$newgame_field = $create -> createNewTag(array(
+    $header_text = array('type=h1', 'value=ARE YOU READY?', 'class=header_text'),
+    $name_input = array('type=input-text', 'value='.$user_name, 'name=user_name', 'req=disabled', 'class=name_input'),
+    $hidden_input = array('type=input-hidden', 'value=newgame'),
+    $submit_btn = array('type=input-submit', 'class=newgameBtn', 'value=ゲームスタート')
 ));
+echo $create -> createNewTag(array('type=div', 'value='.$newgame_field, 'class=div_newgame'));
 echo $create ->formEnd();
 echo $create -> createNewButton(array('value=終了', 'class=exitBtn', 'inside=div', 'nav=exit.php'));
 echo $create -> pageEnd();

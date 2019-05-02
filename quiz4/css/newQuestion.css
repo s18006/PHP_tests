@@ -53,7 +53,7 @@ td {
     padding: 10px;
 }
 
-input[type=text] {
+input[type=text], input[type=search]  {
     padding:5px;
     width: 98%;
     border:2px solid #ccc;
@@ -74,6 +74,18 @@ input[type=text] {
     padding: 20px;
 }
 
+.noResult {
+    width: 30%;
+    margin: auto;
+    padding: 10px;
+    background: green;
+    border-left: 5px solid darkgreen;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+
 input[type=number] {
     padding: 5px;
     width: 20%;
@@ -83,69 +95,45 @@ input[type=number] {
 }
 
 
-input[type=number]:focus, input[type=text]:focus {
+input[type=number]:focus, input[type=text]:focus, input[type=search] {
         background: lightgreen;
 }
 
 input[type=submit], button {
     border-radius: 8px;
-    font-weight: bolder;
+    font-weight: bold;
     width: 250px;
     height: 30px;
+    cursor: pointer;
+}
+
+button {
+    background: linear-gradient(silver, gray);
+    border: 1px solid green;
 }
 
 input[type=submit] {
     background: linear-gradient(lightblue,navy,navy);
     color: white;
     border: 1px solid white;
-    font-weight: bold;
 }
-
 
 input[type=submit]:hover, button:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
     background: green;
     color: white;
-    font-weight: bolder;
     border: 1px solid white;
 }
 
-
-
-button {
-    background: linear-gradient(silver, gray);
-    border: 1px solid green;
-    cursor: pointer;
+.Btn-container {
+    width: 20%;
+    margin: auto;
+    padding: 5px;
 }
 
 
 
-input[type=button] {
-  padding: 10px 10px;
-  font-size: 10px;
-  font-weight: bold;
-  text-align: center;
-  outline: none;
-  color: black;
-  font-weight: bolder;
-  background: linear-gradient(white,darkgreen);
-  border: 1px solid palegreen;
-  border-radius: 15px;
-  box-shadow: 0 6px #484848;
-}
 
-input[type=button]:hover {background: linear-gradient(slategray,black);
-    border: 1px solid navy;
-    color: white;
-    box-shadow: 0 7px #303030;
-}
-
-input[type=button]:active {
-  background: indianred;
-  border: none;
-  box-shadow: 0 5px darkred;
-  transform: translateY(6px);
-}
 
 select {
     margin: 5px 5px;

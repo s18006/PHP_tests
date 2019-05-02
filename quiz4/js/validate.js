@@ -13,7 +13,6 @@ const validate = () => {
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send(userinput);
   document.getElementById("result_text").style.display = "block";
-
 }
 
 const hiddenElement = () => {
@@ -75,9 +74,6 @@ const checkboxAnswers = (obj) => {
     displayHidden(rightAnswer3);
   }
 }
-
-
-
 
 const displayChange = (obj) => {
   Object.keys(obj).forEach (function (item) {
@@ -142,10 +138,9 @@ const uploadCheck = () => {
 
   if (!(alertMsg.value)) {
     alert(alertMsg.join("\n"));
+    return false;
   }
 
-
-    return false;
 }
 
 

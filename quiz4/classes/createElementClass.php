@@ -44,6 +44,13 @@ class createElementClass extends formatElementClass {
         return $result;
     }
 
+    public function fillOnePartElement($id, $tagname) {
+        $result = '<'.$tagname. ' ';
+        $id_content = self::idFiller($id);
+        $result = $result . $id_content . '/>';
+        return $result;
+    }
+
     //for input elements, except buttons
     public function fillInputElement($input, $id, $tagname) {
         $input_tagtype = explode('-', $tagname)[1];
