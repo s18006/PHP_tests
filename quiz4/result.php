@@ -5,7 +5,6 @@ session_start();
 require_once 'classes/controllerClass.php';
 $conn = new controllerClass();
 $create = new pageCreateClass();
-
 echo $create -> pageStart(
     $head_part = array('title=Result', 'link_css=css/view_style.css'),
     $form_part = array('action=newgame.php', 'method=post')

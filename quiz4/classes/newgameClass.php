@@ -5,16 +5,33 @@ class newgameClass extends dbManagerClass {
     public $repeatSeq = array();
 
     public function __construct($post) {
+        self::gameTypeSetting();
         self::getRepeatSeq($post);
         self::randomSequence();
         self::setSession('life', 3);
         self::setSession('idx', 0);
     }
 
+    public function gameTypeSetting() {
+        if(isset($_POST['newgame']) && isset($_POST['db_type'])) {
+            self::setSession('gameType', $_POST['newgame']);
+            self::setSession('dbType', $_POST['db_type']);
+        }
+    }
+
     public function calcQuizRows() {
-        $query_title = "SELECT COUNT(id) FROM quiz4 WHERE id > ?";
+        if (self::getSession('dbType') === 'IT Fundamental') {
+            $query_title = "SELECT COUNT(id) FROM ITFUND WHERE id > ?";
+        } else {
+            $query_title = "SELECT COUNT(id) FROM quiz4 WHERE id > ?";
+        }
         $amountQuestions = self::downloadOneTitle($query_title, 0, 'i');
-        $this -> lengthOfQuiz = $amountQuestions;
+        //setting length of quiz
+        if (self::getSession('gameType') === 'shortGame') {
+            $this -> lengthOfQuiz = 10;
+        } else{
+            $this -> lengthOfQuiz = $amountQuestions;
+        }
         return $amountQuestions;
     }
 
@@ -56,9 +73,9 @@ class newgameClass extends dbManagerClass {
     }
 
     public function clearTable() {
-        if (self::getSession('user_name') !== 'notFound') {
+        if (self::getSession('username') !== 'notFound') {
             $query = 'DELETE FROM quiz_result WHERE user_id = ?';
-            return self::deletePlease($query, self::getSession('user_name'), 's');
+            return self::deletePlease($query, self::getSession('username'), 's');
         }
     }
 

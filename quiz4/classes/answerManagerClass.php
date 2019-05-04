@@ -67,7 +67,7 @@ class answerManagerClass extends quizClass {
     public function uploadResult($right_answer, $question, $user_answer) {
         $query_row = "INSERT INTO quiz_result (user_id, id, right_answer, question, user_answer) VALUES (?, ?, ?, ?, ?)";
         $id = self::getSession('idx');
-        self::insertResult($query_row, array(self::getSession('user_name'), $id, $right_answer, $question, $user_answer), 'sisss');
+        self::insertResult($query_row, array(self::getSession('username'), $id, $right_answer, $question, $user_answer), 'sisss');
     }
 }
 

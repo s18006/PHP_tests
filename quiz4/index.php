@@ -20,14 +20,14 @@ $select_container = $create -> createNewTag(array('type=div', 'value='.$db_type,
 $newGameBtn = $create -> createNewButton(array('type=button', 'value=ニューゲーム', 'onclick=showGameBtn()', 'class=Btn'));
 $newGameBtn_container = $create -> createNewTag(array('type=div', 'value='.$newGameBtn, 'class=Btn-container'));
 
-$shortGameBtn = $create -> createNewButton(array('type=submit', 'value=ショートゲーム', 'name=newgame', 'onclick=return newGameValidate()', 'class=shortGameBtn'));
+$shortGameBtn = $create -> createNewButton(array('type=submit', 'value=ショートゲーム', 'name=newgame', 'req=value=shortGame', 'onclick=return newGameValidate()', 'class=shortGameBtn'));
 $shortGameBtn_container = $create -> createNewTag(array('type=div', 'id=shortGameBtn_container', 'value='.$shortGameBtn, 'style=display:none', 'class=Btn-container'));
 
-$longGameBtn = $create -> createNewButton(array('type=submit', 'value=ロングゲーム', 'name=newgame', 'req=value="shortGame"', 'onclick=return newGameValidate()', 'class=longGameBtn'));
-$longGameBtn_container = $create -> createNewTag(array('type=div', 'id=longGameBtn_container', 'value='.$longGameBtn, 'req=value="longGame"', 'style=display:none', 'class=Btn-container'));
+$longGameBtn = $create -> createNewButton(array('type=submit', 'value=ロングゲーム', 'name=newgame', 'req=value="longGame"', 'onclick=return newGameValidate()', 'class=longGameBtn'));
+$longGameBtn_container = $create -> createNewTag(array('type=div', 'id=longGameBtn_container', 'value='.$longGameBtn, 'style=display:none', 'class=Btn-container'));
 
 
-$newQuestionBtn = $create -> createNewButton(array('type=submit', 'value=新し問題アップロード', 'formaction=newQuestion.php', 'onclick=return newGameValidate()', 'class=Btn'));
+$newQuestionBtn = $create -> createNewButton(array('type=submit', 'value=新し問題アップロード', 'formaction=newQuestion.php', 'onclick=return newGameValidate()', 'class=newQuestionBtn'));
 $newQuestionBtn_container = $create -> createNewTag(array('type=div', 'value='.$newQuestionBtn, 'class=Btn-container'));
 
 $logoutBtn = $create -> createNewButton(array('type=submit', 'name=logout', 'value=ログアウト', 'formaction=index.php', 'class=logoutBtn'));

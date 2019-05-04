@@ -1,14 +1,10 @@
 <?php
-
-//if user doesn't choose play type and length, send back user to index.php
-if (!isset($_POST['newgame'])) {
-    header('Location: index.php');
-}
-
 require_once 'classes/controllerClass.php';
 $conn = new controllerClass();
-//require_once 'controller.php';
-
+//if user doesn't choose play type and length, send back user to index.php
+if (!isset($_POST['newgame']) && !isset($_SESSION['gameType'])) {
+//    header('Location: index.php');
+}
 //if it exists, get last game values
 if (isset($_POST['repeatSeq'])) {
     $repeatSeq = $_POST['repeatSeq'];
@@ -27,7 +23,7 @@ $user_name = $_SESSION['username'];
 $newgame_field = $create -> createNewTag(array(
     $header_text = array('type=h1', 'value=ARE YOU READY?', 'class=header_text'),
     $name_input = array('type=input-text', 'value='.$user_name, 'name=user_name', 'req=disabled', 'class=name_input'),
-    $hidden_input = array('type=input-hidden', 'value=newgame'),
+    $hidden_input = array('type=input-hidden', 'name=newgame', 'value=newgame'),
     $submit_btn = array('type=input-submit', 'class=newgameBtn', 'value=ゲームスタート')
 ));
 echo $create -> createNewTag(array('type=div', 'value='.$newgame_field, 'class=div_newgame'));

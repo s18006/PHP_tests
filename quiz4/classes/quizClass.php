@@ -26,7 +26,11 @@ class quizClass extends dbManagerClass {
     }
 
     public function generateQuiz() {
-        $query_row = "SELECT * FROM quiz4 WHERE id=?";
+        if (self::getSession('dbType') === 'IT Fundamental') {
+            $query_row = "SELECT * FROM ITFUND WHERE id=?";
+        } else {
+            $query_title = "SELECT * FROM quiz4 WHERE id=?";
+        }
         $row = self::downloadRows($query_row, $this->param);
         return $row;
     }
@@ -64,7 +68,7 @@ class quizClass extends dbManagerClass {
             $time = array('type=span', 'value=', 'id=countdown', 'class=timer', 'inside-class=timer_text', 'inside-value=Remaining time: ', 'inside=p'),
             $life = array('type=p', 'style=font-size: 16px; font-weight: bold;', 'value=Remaining life: '. self::getSession('life')),
             $total_counter = array('type=p', 'style=font-weight:bold; width: 260px; background:gray; color:white; font-size:16px;', 'value='.$total_counter_value),
-            $supportText = array('type=p', 'id=supportText', 'class=supportText', 'value=頑張って'.self::getSession('user_name').'さん')));
+            $supportText = array('type=p', 'id=supportText', 'class=supportText', 'value=頑張って')));
 
         //create a hidden tag and define the coundowns seconds in that
         $countdownTag = self::createNewTag(array('type=input-hidden', 'name=countdownValue', 'id=countdownValue', 'style=display:none;', 'value='.$countdown_seconds));
@@ -117,7 +121,7 @@ class quizClass extends dbManagerClass {
 
     public function uploadStartTime() {
         $query_row = "INSERT INTO quiz_result (user_id, id, right_answer, question, user_answer) VALUES (?, ?, ?, ?, ?)";
-        return self::insertResult($query_row, array(self::getSession('user_name'), 0, '', '', ''), 'sisss');
+        return self::insertResult($query_row, array(self::getSession('username'), 0, '', '', ''), 'sisss');
     }
 
     public function getSession($name) {

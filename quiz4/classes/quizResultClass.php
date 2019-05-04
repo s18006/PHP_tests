@@ -14,7 +14,7 @@ class quizResultClass extends dbManagerClass {
 
     public function downloadFullGameDatas() {
         $query_row = "SELECT (MAX(play_time) - MIN(play_time)), COUNT(*) -1, SUM(right_answer), (COUNT(*) - SUM(right_answer)-1) from quiz_result where user_id = ?";
-        $data_list = self::downloadParams1Row($query_row, self::getSession('user_name'), 's', 4);
+        $data_list = self::downloadParams1Row($query_row, self::getSession('username'), 's', 4);
         $val = 0;
         foreach ($this -> result_list as $key => $value) {
             $this->result_list[$key] = $data_list[$val];
@@ -25,7 +25,7 @@ class quizResultClass extends dbManagerClass {
     public function userAnswers() {
         $query_row = "SELECT question, user_answer, right_answer from quiz_result WHERE user_id=? and id=?";
         for ($i = 1; $i <= $this -> result_list['答えの合計']; $i++) {
-            $this -> userAnswers_list[] = self::downloadParams1Row($query_row, array(self::getSession('user_name'), $i), 'si', 3);
+            $this -> userAnswers_list[] = self::downloadParams1Row($query_row, array(self::getSession('username'), $i), 'si', 3);
         }
     }
 
