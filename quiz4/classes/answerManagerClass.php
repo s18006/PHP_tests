@@ -4,7 +4,16 @@ require_once 'dbManagerClass.php';
 class answerManagerClass extends quizClass {
 
     public function __construct($question_type, $db_answer, $question, $user_answer) {
-        if (self::getSession('life') ===0) {
+        //checking if page is refreshed
+        if (self::getSession('refreshCheck') !== 'notFound') {
+            if (self::getSession('refreshCheck') === $question) {
+        //if page is refreshed, send back user to newgame.php
+                header('location: newgame.php');
+            } else {
+                self::setSession('refreshCheck', $question);
+            }
+        }
+        if (self::getSession('life') === 0) {
             header('location: result.php');
         }
         $idx = self::getSession('idx');

@@ -5,12 +5,20 @@ class newgameClass extends dbManagerClass {
     public $repeatSeq = array();
 
     public function __construct($post) {
+        self::clearRefreshCheck();
         self::gameTypeSetting();
         self::getRepeatSeq($post);
         self::randomSequence();
         self::setSession('life', 3);
         self::setSession('idx', 0);
     }
+
+    public function clearRefreshCheck() {
+        if (self::getSession('refreshCheck') != 'notFound') {
+            self::setSession('refreshCheck', '');
+        }
+    }
+
 
     public function gameTypeSetting() {
         if(isset($_POST['newgame']) && isset($_POST['db_type'])) {

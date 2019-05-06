@@ -3,7 +3,7 @@ require_once 'classes/controllerClass.php';
 $conn = new controllerClass();
 //if user doesn't choose play type and length, send back user to index.php
 if (!isset($_POST['newgame']) && !isset($_SESSION['gameType'])) {
-//    header('Location: index.php');
+    header('Location: index.php');
 }
 //if it exists, get last game values
 if (isset($_POST['repeatSeq'])) {
@@ -13,7 +13,7 @@ if (isset($_POST['repeatSeq'])) {
 }
 $create = new pageCreateClass();
 $newgame = new newgameClass($repeatSeq);
-
+echo $_SESSION['refreshCheck'];
 echo $create -> pageStart(
     $head_part = array('title=New Game', 'link_css=css/view_style.css'),
     $form_part = array('method=post', 'action=view.php')
@@ -28,7 +28,7 @@ $newgame_field = $create -> createNewTag(array(
 ));
 echo $create -> createNewTag(array('type=div', 'value='.$newgame_field, 'class=div_newgame'));
 echo $create ->formEnd();
-echo $create -> createNewButton(array('value=終了', 'class=exitBtn', 'inside=div', 'nav=exit.php'));
+echo $create -> createNewButton(array('value=HOMEページに戻る', 'class=backBtn', 'inside=div', 'nav=index.php'));
 echo $create -> pageEnd();
 ?>
 

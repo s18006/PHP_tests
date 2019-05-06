@@ -38,9 +38,9 @@ class quizClass extends dbManagerClass {
     public function formatQuizPage() {
         //set countdown
         if ($this->quizRow['question_difficulty'] == 'K') {
-            $countdown_seconds = json_encode(60);
+            $countdown_seconds = json_encode(2000);
         } else {
-            $countdown_seconds = json_encode(90);
+            $countdown_seconds = json_encode(3000);
         }
 
         //create pageStart part if question type is checkbox
@@ -86,10 +86,17 @@ class quizClass extends dbManagerClass {
             if ($this->quizRow['question_type'] === 'select-img') {
                 $user_content .= self::createNewTag(array('type=img', 'src=images/'.$this->quizRow['id'].'.png', 'value='));
             }
-            for ($i = 1; $i <= 4; $i++)  {
+            //randomize sequence of options
+            $tempList = [];
+            foreach ($this ->quizRow as $key => $value) {
+                if (substr($key, 0, 6) == 'option' && !empty($value)) {
+                    $tempList[] = $value;
+                }
+            }
+            shuffle($tempList);
+            foreach ($tempList as $key => $value) {
                 //define numbers of options and create a hidden input, then add to user_content value
-                $idxOption = 'option'.$i;
-                $user_content .= self::createNewIRadio(array('display='.$this->quizRow[$idxOption], 'name=user_answer', 'id='.$i, 'req=required', 'value='.$this->quizRow[$idxOption], 'inside=div'));
+                $user_content .= self::createNewIRadio(array('display='.$value, 'name=user_answer', 'id='.$key, 'req=required', 'value='.$value, 'inside=div'));
             }
         }
         //if question_type is checkbox, the type of tags are checkbox (id is required part)
@@ -119,7 +126,14 @@ class quizClass extends dbManagerClass {
         return $result;
     }
 
-    public function uploadStartTime() {
+    public function uploadStartTime($postNewgame) {
+        //if page is refreshed, we send back user to newgame.php
+        if (self::getSession('refreshCheck') === 'newgame') {
+            header('location: newgame.php');
+        } else {
+            self::setSession('refreshCheck', $postNewgame);
+        }
+        //if page is not refreshed upload starting time as time stamp
         $query_row = "INSERT INTO quiz_result (user_id, id, right_answer, question, user_answer) VALUES (?, ?, ?, ?, ?)";
         return self::insertResult($query_row, array(self::getSession('username'), 0, '', '', ''), 'sisss');
     }
