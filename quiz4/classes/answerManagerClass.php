@@ -19,8 +19,15 @@ class answerManagerClass extends quizClass {
         $idx = self::getSession('idx');
         //if answer a list (only with chechbox), first convert the array to list, the hash the answer string
         if ($question_type === 'checkbox') {
-            $user_answer = implode('', $user_answer);
-            $user_answer_hashed = hash('sha256', json_encode($user_answer));
+            sort($user_answer);
+            if (count($user_answer) === 3) {
+                $temp_user_answer = $user_answer[0].':/#'.$user_answer[1].':/#'.$user_answer[2];
+                $user_answer = '1. '. $user_answer[0]. ', 2. ' .$user_answer[1] . ', 3. '.$user_answer[2];
+            } else {
+                $temp_user_answer = $user_answer[0].':/#'.$user_answer[1];
+                $user_answer = '1. '. $user_answer[0]. ', 2. ' .$user_answer[1];
+            }
+            $user_answer_hashed = hash('sha256', json_encode($temp_user_answer));
         }
 
         //if answer includes only numeric characters, the hash method is different
@@ -32,13 +39,14 @@ class answerManagerClass extends quizClass {
         if ($question_type === 'bet-text') {
             $user_answer_hashed = hash('sha256', json_encode(strtolower($user_answer)));
         }
-        else {
+        if ($question_type === 'select' || $question_type === 'select-img') {
             $user_answer_hashed = hash('sha256', json_encode($user_answer));
         }
         if (self::getSession('answer_rate') === 'notFound') {
             self::setSession('answer_rate', array(0, 0));
         }
-        if ($db_answer !== $user_answer_hashed) {
+        //check user if answer and database data are equal
+        if ($db_answer != $user_answer_hashed) {
              self::uploadResult(0, $question, $user_answer);
              self::setSession('life', self::getSession('life')-1);
         }

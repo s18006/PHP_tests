@@ -126,7 +126,7 @@ img {
 .answerInputText, .answerInputNumber {
     width: 90%;
     height: 70px;
-    margin: 0 5% 0 5%;
+    margin: auto;
     font-size: 22px;
     font-weight: bold;
     border: 5px solid #ccc;
@@ -140,7 +140,8 @@ img {
 .divAnswerInputText, .divAnswerInputNumber {
     width: 40%;
     height: 80px;
-    margin: 0% 30% 0% 30%;
+    margin: auto;
+    margin-top: 20px;
     padding-top: 6px;
     padding-bottom: 12px;
 }
@@ -155,10 +156,12 @@ img {
     border: 1px solid green;
     font-weight: bolder;
     background: linear-gradient(white, Silver);
-    width: 250px;
-    height: 60px;
-    margin: 5px; 5px;
+    width: 150px;
+    height: 40px;
+    margin: auto;
+    padding: 10px;
 }
+
 
 .orange_answerBtn {
     border-radius: 8px;
@@ -196,7 +199,7 @@ input[type=radio] + label {
     margin: 0.2em;
     cursor: pointer;
     padding: 0.3em;
-    width: 100%;
+    width: 90%;
 }
 
 input[type=radio] {
@@ -224,22 +227,20 @@ input[type=radio] + label:active:before {
 input[type=radio]:checked + label:before {
     background-color: #4CAF50;
     border-color: #4cAF50;
-    color: #fff;
+    color: #ccc;
 }
 
 input[type=radio]:checked + label {
     background: #ccc;
+    border: 1px solid #fff;
 }
-
-
-
 
 input[type=checkbox] + label {
     display: block;
-    margin: 0.2em;
+    margin: auto;
     cursor: pointer;
     padding: 0.3em;
-    width: 100%;
+    width: 90%;
 }
 
 input[type=checkbox] {
@@ -267,12 +268,26 @@ input[type=checkbox] + label:active:before {
 input[type=checkbox]:checked + label:before {
     background-color: #4CAF50;
     border-color: #4cAF50;
-    color: #fff;
+    color: #ccc;
 }
 
 input[type=checkbox]:checked + label {
     background: #ccc;
 }
+
+.main-container {
+    width: 80%;
+    padding: 10px;
+    margin: auto;
+    margin-top: 20px;
+    background: linear-gradient(45deg, #fff, ghostwhite);
+    border: 2px solid #fff;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+
+
+
 
 .timer {
     padding: 10px;

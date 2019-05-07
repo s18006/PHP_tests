@@ -6,9 +6,14 @@ $db = new dbManagerClass();
 $create = new pageCreateClass();
 if (isset($_POST['keyword']) && !empty($_POST['keyword'])) {
     $keyword = '%'.$_POST['keyword'].'%';
-
-    $query_keyList = "SELECT question FROM quiz4 where question like ?";
-    $keyList = $db -> downloadParams($query_keyList, $keyword, 's', 1);
+    if ($_SESSION['dbType'] === "IT Fundamental") {
+        $query_keyList = "SELECT question FROM ITFUND where question like ?";
+    } if ($_SESSION['dbType'] === '.com Master') {
+        $query_keyList = "SELECT question FROM comMaster where question like ?";
+        } else {
+        $query_keyList = "SELECT question FROM quiz4 where question like ?";
+        }
+        $keyList = $db -> downloadParams($query_keyList, $keyword, 's', 1);
     if (count($keyList) > 0) {
         $create -> createNewTable(array(array('type=th', 'value=もうアップロードされた問題')));
         foreach ($keyList as $key => $value) {

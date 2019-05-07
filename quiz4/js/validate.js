@@ -136,10 +136,10 @@ const uploadCheck = () => {
     }
   }
 
-  if (!(alertMsg.value)) {
+  if (alertMsg.length > 0) {
     alert(alertMsg.join("\n"));
     return false;
-  }
+  } else { return true; }
 
 }
 
