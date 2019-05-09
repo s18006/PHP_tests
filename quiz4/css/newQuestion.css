@@ -9,7 +9,7 @@ header {
     font-size: 12px;
     width: 99%;
     padding: 10px;
-    background: linear-gradient(45deg, black, green, lightgreen);
+    background: linear-gradient(45deg, black, #BEBEBE);
     color: white;
     text-shadow: 2px 2px 4px #000000;
     margin-bottom: 30px;
@@ -32,6 +32,10 @@ table {
     width: 95%;
     margin: auto;
     margin-top: 50px;
+}
+
+table {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 table, tr, th, td {
@@ -95,7 +99,7 @@ input[type=number] {
 }
 
 
-input[type=number]:focus, input[type=text]:focus, input[type=search] {
+input[type=number]:focus, input[type=text]:focus, input[type=search]:focus {
         background: lightgreen;
 }
 
@@ -128,12 +132,9 @@ input[type=submit]:hover, button:hover {
 .Btn-container {
     width: 20%;
     margin: auto;
+    margin-top: 20px;
     padding: 5px;
 }
-
-
-
-
 
 select {
     margin: 5px 5px;

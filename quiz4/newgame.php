@@ -13,7 +13,6 @@ if (isset($_POST['repeatSeq'])) {
 }
 $create = new pageCreateClass();
 $newgame = new newgameClass($repeatSeq);
-echo $_SESSION['refreshCheck'];
 echo $create -> pageStart(
     $head_part = array('title=New Game', 'link_css=css/view_style.css'),
     $form_part = array('method=post', 'action=view.php')

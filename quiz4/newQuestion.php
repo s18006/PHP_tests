@@ -2,6 +2,34 @@
 
 require_once 'classes/controllerClass.php';
 $conn = new controllerClass();
+$db = new dbManagerClass();
+if (isset($_POST['db_type'])) {
+    $conn -> addSession('dbType', $_POST['db_type']);
+}
+//continue from here...
+if (isset($_POST['userId'])) {
+    $option_length = '';
+    if ($_POST['question_type'] === 'checkbox') {
+        $option_length = 3 + $_POST['answer_length'];
+        $answer_list = $_POST['right_answer'];
+        if ($_POST['answer_length'] === 3) {
+            sort($answer_list);
+            $answer = $answer_list[0].':/#'.$answer_list[1].':/#'.$answer_list[2];
+        } else {
+            unset($answer_list[2]);
+            sort($answer_list);
+            $answer = $answer_list[0].':/#'.$_answer_list[1];
+        }
+    } else{
+        $answer = $_POST['right_answer'][0];
+    }
+    $answer = hash('sha256', json_encode($answer));
+    $param_list = 'ssssssssssssssii';
+    $upload_list = [$_POST['userId'], $_SESSION['dbType'], $_POST['question_type'], $_POST['question'], $_POST['right_answer'][0], $_POST['right_answer'][1], $_POST['right_answer'][2], $_POST['option1'], $_POST['option2'], $_POST['option3'], $_POST['option4'], $_POST['option5'], $answer, strlen($_POST['right_answer'][0]), $_POST['answer_length'], $option_length];
+    $query_upload = "INSERT INTO temp_table (user_id, database_type, question_type, question, right_answer, right_answer2, right_answer3, option1, option2, option3, option4, option5, answer, answer_length, checkbox_length, checkbox_options) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $db -> insertResult($query_upload, $upload_list, $param_list);
+    header('location: index.php');
+}
 
 $create = new pageCreateClass();
 
@@ -23,7 +51,7 @@ echo $create -> createNewTag(array('type=div', 'class=searchField-container', 'v
 
 
 //create table content (input field)
-$user_id = $create -> createNewTag(array('type=input-text', 'id=userId', 'name=userId', 'value=', 'placeholder=学籍番号', 'pattern=[a-z]{1}[0-9]{5}'));
+$user_id = $create -> createNewTag(array('type=input-text', 'id=userId', 'name=userId', 'value='.$_SESSION['username'], 'req=readonly'));
 
 $question = $create -> createNewTag(array('type=input-text', 'id=question', 'name=question', 'value=', 'placeholder=質問'));
 
@@ -34,11 +62,11 @@ $options_part = array('-' => array('value='), '選択問題' => array('value=sel
 
 $answer_length = $create -> createNewTag(array('type=input-number', 'name=answer_length', 'id=answerLength', 'value=', 'min=2', 'max=3', 'onInput=checkboxAnswers(this)'));
 
-$right_answer = $create -> createNewTag(array('type=input-text', 'id=right_answer', 'name=right_answer', 'value=', 'placeholder=正解な答え'));
+$right_answer = $create -> createNewTag(array('type=input-text', 'id=right_answer', 'name=right_answer[]', 'value=', 'placeholder=正解な答え'));
 
-$right_answer2 = $create -> createNewTag(array('type=input-text', 'id=right_answer2', 'name=right_answer2', 'value=', 'placeholder=正解な答え'));
+$right_answer2 = $create -> createNewTag(array('type=input-text', 'id=right_answer2', 'name=right_answer[]', 'value=', 'placeholder=正解な答え'));
 
-$right_answer3 = $create -> createNewTag(array('type=input-text', 'id=right_answer3', 'name=right_answer3', 'value=', 'placeholder=正解な答え'));
+$right_answer3 = $create -> createNewTag(array('type=input-text', 'id=right_answer3', 'name=right_answer[]', 'value=', 'placeholder=正解な答え'));
 
 $option1 = $create -> createNewTag(array('type=input-text', 'name=option1', 'value=', 'id=option1', 'placeholder=オプション1'));
 
@@ -55,7 +83,7 @@ $options_length = $create -> createNewTag(array('type=input-number', 'name=optio
 //table create
 $table_th = $create -> createNewTable(array(array('type=th', 'colspan=2', 'value=アップロードしたいQUIZ問題情報')));
 $table_row1 = $create -> createNewTable(array(
-    $td_1 = array('type=td', 'style=width:300px;', 'value=学籍番号'),
+    $td_1 = array('type=td', 'style=width:300px;', 'value=学籍番号/ユーザー名'),
     $td_2 = array('type=td', 'value='.$user_id)
 ));
 

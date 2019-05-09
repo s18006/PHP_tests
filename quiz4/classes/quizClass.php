@@ -101,10 +101,17 @@ class quizClass extends dbManagerClass {
         }
         //if question_type is checkbox, the type of tags are checkbox (id is required part)
         if ($this -> quizRow['question_type'] === 'checkbox') {
+            //create input hidden for js validation
             $user_content .= self::createNewTag(array('type=input-hidden', 'value='.$this->quizRow['checkbox_options'], 'name=checkbox_options', 'style=display:none;', 'id=checkbox_options'));
-            for ($i = 1; $i <= $this->quizRow['checkbox_length']; $i++) {
-                $idxOption = 'option'.$i;
-                $user_content .= self::createNewCheckbox(array('display='.$this->quizRow[$idxOption], 'name=user_answer[]', 'id='.$i, 'value='.$this->quizRow[$idxOption], 'inside=div'));
+            $tempList = [];
+            foreach ($this ->quizRow as $key => $value) {
+                if (substr($key, 0, 6) == 'option' && !empty($value)) {
+                    $tempList[] = $value;
+                }
+            }
+            shuffle($tempList);
+            foreach ($tempList as $key => $value) {
+                $user_content .= self::createNewCheckbox(array('display='.$value, 'name=user_answer[]', 'id='.$key, 'value='.$value, 'inside=div'));
             }
         }
         //if question type is bet number, the type of tag is input-text (only for numbers)
@@ -120,9 +127,11 @@ class quizClass extends dbManagerClass {
 //close the form and the page
         $formEnd = self::formEnd();
         $pageEnd = self::pageEnd();
-
+        
+        //
+        $container_mainContent = self::createNewTag(array('type=div', 'value='.$hidden_question.$hidden_type.$hidden_answer.$question.$user_content.$submitBtn, 'class=main-container'));
         //create the page content as $result
-        $result = $pageOpen . $timeLabel . $countdownTag . $hidden_question . $hidden_type . $hidden_answer . $question . $user_content . $submitBtn . $formEnd . $pageEnd;
+        $result = $pageOpen . $timeLabel . $countdownTag . $container_mainContent . $formEnd . $pageEnd;
         return $result;
     }
 

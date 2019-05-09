@@ -3,12 +3,12 @@
 class isAuthenticatedClass {
     public function __construct() {
         $path = explode('/', htmlspecialchars($_SERVER['PHP_SELF']));
+        if (!isset($_SESSION)) {
+            session_start();
+        }
         if (isset($_POST['logout'])) {
             session_destroy();
             header('Location: '.$dirpath_login.'login.php');
-        }
-        if(!isset($_SESSION)) {
-            session_start();
         }
         if (end($path) != 'login.php') {
             if (!isset($_SESSION['username']) || empty($_SESSION['username'])) {
