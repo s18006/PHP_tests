@@ -35,8 +35,8 @@ class quizClass extends dbManagerClass {
 
     //user answer check
     public function answerCheck($id, $user_answer) {
-        $query = "SELECT question, question_type, answer FROM quiz4 WHERE id=?";
-        $result = self::downloadParams1Row($query, $id, 'i', 3);
+        $query = "SELECT question, question_type, answer, quizId FROM quiz4 WHERE id=?";
+        $result = self::downloadParams1Row($query, $id, 'i', 4);
         if ($result[1] == 'checkbox') {
             sort($user_answer);
             if (count($user_answer) === 3) {
@@ -63,20 +63,21 @@ class quizClass extends dbManagerClass {
         }
 
         if ($result[2] != $user_answer_hashed) {
-             self::uploadResult(0, $result[0], $user_answer);
+             //right answer (0 = no, 1 = yes), question, answer of user, if of quiz
+             self::uploadResult(0, $result[0], $user_answer, $result[3]);
         }
         else {
-            self::uploadResult(1, $result[0], $user_answer);
+            //right answer (0 = no, 1 = yes), question, answer of user, if of quiz
+            self::uploadResult(1, $result[0], $user_answer, $result[3]);
         }
     }
 
-     public function uploadResult($right_answer, $question, $user_answer) {
-        $query_row = "INSERT INTO quiz_result (user_id, id, right_answer, question, user_answer) VALUES (?, ?, ?, ?, ?)";
+     public function uploadResult($right_answer, $question, $user_answer, $quizId) {
+        $query_row = "INSERT INTO quiz_result (user_id, id, quizId, right_answer, question, user_answer) VALUES (?, ?, ?, ?, ?, ?)";
         $id = self::getSession('idx');
         //username change when login process is ready
-        self::insertResult($query_row, array('Tester', $id, $right_answer, $question, $user_answer), 'sisss');
+        self::insertResult($query_row, array('Tester', $id, $quizId, $right_answer, $question, $user_answer), 'siisss');
     }
-
 
     //new question
     public function generateQuiz() {
@@ -177,5 +178,4 @@ if (isset($_POST['quizContent'])) {
     $quizClass = new quizClass($_POST['quizContent']);
     echo $quizClass->getUserContent();
 }
-
 ?>
