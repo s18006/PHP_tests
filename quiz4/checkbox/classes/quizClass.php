@@ -1,6 +1,8 @@
 <?php
 require_once 'dbManagerClass.php';
 class quizClass extends dbManagerClass {
+    //check refresh or end case by status
+    private $status = 'working';
     private $param;
     private $quizRow = array();
     private $user_content;
@@ -12,10 +14,71 @@ class quizClass extends dbManagerClass {
         //decode the post
         $content = json_decode($post);
         if ($content -> type == 'withoutAnswer') {
-            self::generateQuiz();
+            //in case of refresh...
+            if (self::getSession('idx') > 0) {
+                $this -> status = 'refreshed';
+            } else {
+                self::generateQuiz();
+            }
+        }
+
+        if ($content -> type == 'withAnswer') {
+            self::answerCheck($content -> id, $content -> answer);
+            if (self::getSession('idx') >= count(self::getSession('quizIds'))) {
+                $this -> status = 'end';
+            }
+            else {
+                self::generateQuiz();
+            }
         }
     }
 
+    //user answer check
+    public function answerCheck($id, $user_answer) {
+        $query = "SELECT question, question_type, answer FROM quiz4 WHERE id=?";
+        $result = self::downloadParams1Row($query, $id, 'i', 3);
+        if ($result[1] == 'checkbox') {
+            sort($user_answer);
+            if (count($user_answer) === 3) {
+                $temp_user_answer = $user_answer[0].':/#'.$user_answer[1].':/#'.$user_answer[2];
+                $user_answer = '1. '. $user_answer[0]. ', 2. ' .$user_answer[1] . ', 3. '.$user_answer[2];
+            } else {
+                $temp_user_answer = $user_answer[0].':/#'.$user_answer[1];
+                $user_answer = '1. '. $user_answer[0]. ', 2. ' .$user_answer[1];
+            }
+            $user_answer_hashed = hash('sha256', json_encode($temp_user_answer));
+        }
+        if ($result[1] === 'bet-number') {
+            $user_answer = intval($user_answer);
+            $user_answer_hashed = hash('sha256', json_encode($user_answer));
+        }
+
+        //if answer includes other parameters
+        if ($result[1] === 'bet-text') {
+            $user_answer_hashed = hash('sha256', json_encode(strtolower($user_answer)));
+        }
+
+        if ($result[1] === 'select' || $result[1] === 'select-img') {
+            $user_answer_hashed = hash('sha256', json_encode($user_answer));
+        }
+
+        if ($result[2] != $user_answer_hashed) {
+             self::uploadResult(0, $result[0], $user_answer);
+        }
+        else {
+            self::uploadResult(1, $result[0], $user_answer);
+        }
+    }
+
+     public function uploadResult($right_answer, $question, $user_answer) {
+        $query_row = "INSERT INTO quiz_result (user_id, id, right_answer, question, user_answer) VALUES (?, ?, ?, ?, ?)";
+        $id = self::getSession('idx');
+        //username change when login process is ready
+        self::insertResult($query_row, array('Tester', $id, $right_answer, $question, $user_answer), 'sisss');
+    }
+
+
+    //new question
     public function generateQuiz() {
         //the next index of random sequence list
         $idx = self::getSession('idx');
@@ -75,6 +138,7 @@ class quizClass extends dbManagerClass {
         if ($this -> quizRow['question_type'] === 'bet-text') {
             $this -> user_content .= '<div class="divAnswerInputText"><input type="text" id="user_answer" class="answerInputText" maxlength="'.$this -> quizRow['answer_length'].'"></div>';
         }
+        $this -> user_content .= '<input type="hidden" id="question_type" value="'.$this -> quizRow['question_type'].'"> <input type="hidden" id="question_id" value="'.$this->quizRow['id'].'">';
     }
 
     public function getSession($name) {
@@ -103,7 +167,7 @@ class quizClass extends dbManagerClass {
 
     public function getUserContent() {
         $json_array = array(
-            'content' => 'content',
+            'status' => $this -> status,
             'html_content' => $this -> user_content);
         return json_encode($json_array);
     }
