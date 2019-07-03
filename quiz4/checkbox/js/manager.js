@@ -8,23 +8,20 @@ const secondPassed = () => {
   const countdown = document.getElementById('countdown');
   countdown.innerHTML = minutes + ":" + remainingSeconds;
   const answerBtn = document.getElementById('answerBtn');
+  document.getElementById('countdownValue').value--;
   if (seconds == 30) {
       answerBtn.className = 'orange_answerBtn';
   }
   if (seconds == 15) {
     answerBtn.className = 'red_answerBtn';
   }
-  if (seconds == 5) {
-    countdown.className = 'red';
-    }
   if (seconds == 0) {
-    return window.location.href="result.php";
-  } else {
-    document.getElementById('countdownValue').value--;
-    }
-}
-let countdownTimer = setInterval('secondPassed()', 1000);
+    endGamePost('result.php', 'post');
+  }
+};
 
+//refresh in every one sec
+let countdownTimer = setInterval('secondPassed()', 1000);
 
 const loadQuestion = (type) => {
   let content;
@@ -57,9 +54,9 @@ const loadQuestion = (type) => {
       console.log(xhttp.responseText);
       receivedData = JSON.parse(xhttp.responseText);
       if (receivedData['status'] == 'end') {
-        window.location.href = 'index.html';
+        endGamePost('result.php', 'post');
       } else if (receivedData['status'] == 'refreshed') {
-        window.location.href = 'index.html';
+        window.location.href = 'index.php';
       } else {
         document.getElementById('question-container').innerHTML = receivedData['html_content'];
       }
@@ -68,4 +65,20 @@ const loadQuestion = (type) => {
   xhttp.open("POST", "http://localhost/else/checkbox/classes/quizClass.php", true);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send('quizContent=' + userinput);
+};
+
+const endGamePost = (path, method='post') => {
+  const form = document.createElement('form');
+  form.method = method;
+  form.action = path;
+
+  const gameTime = document.getElementById('totalTime').value - document.getElementById('countdownValue').value - 1;
+  const hiddenField = document.createElement('input');
+  hiddenField.type = 'hidden';
+  hiddenField.name = 'gameTime';
+  hiddenField.value = gameTime;
+  form.appendChild(hiddenField);
+  document.body.appendChild(form);
+  form.submit();
 }
+

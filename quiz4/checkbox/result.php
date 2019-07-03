@@ -1,3 +1,7 @@
+<?php
+    require_once 'classes/gameResultClass.php';
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -12,6 +16,7 @@
         <div class="table1-container">
             <table class="table1">
                 <tr> <th colspan="2"> ゲーム結果　</th> </tr>
+                <?php echo $tbody1; ?>
             </table>
         </div>
         <div class="table2-container">
@@ -22,6 +27,7 @@
                     <th class="answer-col"> ユーザーの答え </th>
                     <th class="result-col"> 正解 / 不正解 </th>
                 </tr>
+                <?php echo $tbody2; ?>
             </table>
         </div>
     </div>

@@ -26,9 +26,10 @@
     <div class="main-container">
         <div id="question-container" class="question-container"></div>
         <div class="submit-btn-container">
-          <button type="button" class="answerBtn" onclick="loadQuestion('withAnswer')"> 送信 </button>
+          <button type="button" class="answerBtn" id="answerBtn" onclick="loadQuestion('withAnswer')"> 送信 </button>
         </div>
     </div>
-    <input type="hidden" name="countdownValue" id="countdownValue" value="5000"/>
+    <input type="hidden" name="countdownValue" id="countdownValue" value="<?php echo $time; ?>"/>
+    <input type="hidden" name="totalTime" id="totalTime" value="<?php echo $time; ?>"/>
   </body>
 </html>

@@ -19,7 +19,7 @@ class idListCreator extends dbManagerClass {
       $result .= " OR quizId=?";
     }
      return $result;
-    }
+  }
 
   public function createIdList($post) {
     $param_list = str_repeat('i', count($_POST['title']));
@@ -32,14 +32,22 @@ class idListCreator extends dbManagerClass {
   }
 }
 
-if (isset($_POST['title'])) {
-    echo 'ok';
-    $idListCreator = new idListCreator($_POST['title']);
-    $_SESSION['quizIds'] = $idListCreator -> getResult();
-    $_SESSION['idx'] = 0;
-    unset($_POST['title']);
-    header('location: '.$_SERVER['PHP_SELF']);
-    exit;
+if (!isset($_POST['title']) && !isset($_SESSION['quizIds'])) {
+   header('location: index.php');
 }
-
+else {
+    if (isset($_POST['title'])) {
+        $idListCreator = new idListCreator($_POST['title']);
+        $_SESSION['quizIds'] = $idListCreator -> getResult();
+        $_SESSION['idx'] = 0;
+        unset($_POST['title']);
+        header('location: '.$_SERVER['PHP_SELF']);
+        exit;
+    } else {
+        $time = 1000;
+        if (isset($_SESSION['quizIds'])) {
+            $time = count($_SESSION['quizIds']) * 15;
+        }
+    }
+}
 ?>
