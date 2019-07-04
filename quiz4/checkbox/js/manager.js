@@ -38,15 +38,16 @@ const loadQuestion = (type) => {
       let checkedSum = document.querySelectorAll('input[type="checkbox"]:checked');
       let answerList = [];
       checkedSum.forEach(x => {answerList.push(x.value)});
-      content = { 'type' : type, 'id' : document.getElementById('question_id').value, 'answer' : answerList };
+      content = { 'type' : type, 'id' : document.getElementById('question_id').value, 'answer' : answerList, 'rightAnswer' : document.getElementById('rightAnswer').value };
     }
     //in case of select, text input..
     else {
         userAnswer = (questionType == 'select' || questionType == 'select-img') ? document.querySelector('input[name="user_answer"]:checked').value : document.getElementById('user_answer').value;
-        content = { 'type' : type, 'id' : document.getElementById('question_id').value, 'answer' : userAnswer };
+        content = { 'type' : type, 'id' : document.getElementById('question_id').value, 'answer' : userAnswer, 'rightAnswer' : document.getElementById('rightAnswer').value };
     }
   }
   let userinput = JSON.stringify(content);
+  console.log(userinput);
   let receivedData;
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange= function() {
@@ -59,6 +60,11 @@ const loadQuestion = (type) => {
         window.location.href = 'index.php';
       } else {
         document.getElementById('question-container').innerHTML = receivedData['html_content'];
+        if (receivedData['total'] > 0) {
+          //fill the statistic data and fill the rightanswer value of the hidden input tag
+          document.getElementById('statistics').innerHTML = '正解: ' + receivedData['rightAnswers'] + ', 合計: ' + receivedData['total'] + ', 正解確率: ' + ((parseInt(receivedData['rightAnswers']) / parseInt(receivedData['total'])* 100).toFixed(2)).toString() + '%';
+          document.getElementById('rightAnswer').value = receivedData['rightAnswers'];
+        }
       }
     }
   };

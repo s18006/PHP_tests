@@ -6,6 +6,7 @@ class quizClass extends dbManagerClass {
     private $param;
     private $quizRow = array();
     private $user_content;
+    private $rightAnswers = 0;
 
     public function __construct($post) {
         //start session anyway
@@ -23,6 +24,7 @@ class quizClass extends dbManagerClass {
         }
 
         if ($content -> type == 'withAnswer') {
+            $this -> rightAnswers = $content -> rightAnswer;
             self::answerCheck($content -> id, $content -> answer);
             if (self::getSession('idx') >= count(self::getSession('quizIds'))) {
                 $this -> status = 'end';
@@ -69,6 +71,7 @@ class quizClass extends dbManagerClass {
         else {
             //right answer (0 = no, 1 = yes), question, answer of user, if of quiz
             self::uploadResult(1, $result[0], $user_answer, $result[3]);
+            $this -> rightAnswers++;
         }
     }
 
@@ -85,7 +88,7 @@ class quizClass extends dbManagerClass {
         $idx = self::getSession('idx');
         //increse idx for the next round
         self::setSession('idx', $idx+1);
-        //the next parameeter of random sequence
+        //the next parameter of random sequence
         $this -> param = self::getSessionIfArray('quizIds', $idx);
         $query = "SELECT * FROM quiz4 WHERE id=?";
         $this -> quizRow = self::downloadRows($query, $this->param);
@@ -169,7 +172,9 @@ class quizClass extends dbManagerClass {
     public function getUserContent() {
         $json_array = array(
             'status' => $this -> status,
-            'html_content' => $this -> user_content);
+            'html_content' => $this -> user_content,
+            'rightAnswers' => $this -> rightAnswers,
+            'total' => self::getSession('idx') - 1);
         return json_encode($json_array);
     }
 }

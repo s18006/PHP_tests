@@ -31,5 +31,6 @@
     </div>
     <input type="hidden" name="countdownValue" id="countdownValue" value="<?php echo $time; ?>"/>
     <input type="hidden" name="totalTime" id="totalTime" value="<?php echo $time; ?>"/>
+    <input type="hidden" name="rightAnswer" id="rightAnswer" value="0"/>
   </body>
 </html>
