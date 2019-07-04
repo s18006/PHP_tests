@@ -23,6 +23,42 @@ const secondPassed = () => {
 //refresh in every one sec
 let countdownTimer = setInterval('secondPassed()', 1000);
 
+
+const validation = () => {
+  let alertMsg = '';
+  const type = document.getElementById('question_type').value;
+  if (type == 'select' || type == 'select-img') {
+    if (document.querySelectorAll("input[type='radio']:checked").length == 0) {
+    alertMsg = 'オプションを１つ選択して下さい';
+    }
+  }
+  if (type == 'bet-number') {
+    if (document.getElementById('user_answer').value == '') {
+      alertMsg = 'インプットフィルドを記入して下さい';
+    }
+    if (!Number.isInteger(parseInt(document.getElementById('user_answer').value))) {
+      alertMsg = '答えとして数字を入力して下さい';
+      document.getElementById('user_answer').value = '';
+    }
+  }
+  if (type == 'bet-text') {
+     if (document.getElementById('user_answer').value == '') {
+      alertMsg = 'インプットフィルドを記入して下さい';
+    }
+  }
+  if (type == 'checkbox') {
+    if (document.querySelectorAll("input[type='checkbox']:checked").length != parseInt(document.getElementById('checkbox_options').value)) {
+      alertMsg = document.getElementById('checkbox_options').value + 'つのオプションを選択して下さい';
+    }
+  }
+  if (alertMsg != '') {
+    alert(alertMsg);
+  }
+  else {
+    loadQuestion('withAnswer');
+  }
+};
+
 const loadQuestion = (type) => {
   let content;
   let userAnswer;

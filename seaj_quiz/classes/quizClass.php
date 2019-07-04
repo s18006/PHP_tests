@@ -135,11 +135,11 @@ class quizClass extends dbManagerClass {
         }
 
         if ($this -> quizRow['question_type'] === 'bet-number') {
-            $this -> user_content .= '<div class="divAnswerInputNumber"><input type="text" id="user_answer" class="answerInputNumber" pattern="\d*" maxlength="'.$this -> quizRow['answer_length'].'"></div>';
+            $this -> user_content .= '<div class="divAnswerInputNumber"><input type="text" id="user_answer" class="answerInputNumber" pattern="\d*" maxlength="'.$this -> quizRow['answer_length'].'" value=""></div>';
         }
 
         if ($this -> quizRow['question_type'] === 'bet-text') {
-            $this -> user_content .= '<div class="divAnswerInputText"><input type="text" id="user_answer" class="answerInputText" maxlength="'.$this -> quizRow['answer_length'].'"></div>';
+            $this -> user_content .= '<div class="divAnswerInputText"><input type="text" id="user_answer" class="answerInputText" maxlength="'.$this -> quizRow['answer_length'].'" value=""></div>';
         }
         $this -> user_content .= '<input type="hidden" id="question_type" value="'.$this -> quizRow['question_type'].'"> <input type="hidden" id="question_id" value="'.$this->quizRow['id'].'">';
     }
