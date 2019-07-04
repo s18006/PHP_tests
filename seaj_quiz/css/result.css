@@ -1,0 +1,92 @@
+body {
+    font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif;
+    background-color: hsl(130, 30%, 97%);
+    height: 100%;
+}
+
+.title-container {
+    text-align: center;
+    padding: 25.5px;
+    border: 2px solid white;
+    background: linear-gradient(45deg, #5C676D, #165175, #0E2E42);
+    text-shadow: 2px 2px 4px #000000;
+}
+
+
+@keyframes color_change {
+  0%   {color: #fff;}
+  50%  {color: #000;}
+  100% {color: #fff;}
+}
+
+h1 {
+    font-size: 28px;
+    text-align: center;
+    color: #fff;
+    animation-name: color_change;
+    animation-duration: 2s;
+}
+
+.main-container {
+    margin-top: 30px;
+    display: grid;
+    grid-template-columns: 1fr 90% 1fr;
+    grid-template-rows: auto auto;
+    row-gap: 30px;
+}
+
+.table1-container {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.table2-container {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+
+
+.table1-container table {
+    width: 80%;
+    border-collapse: collapse;
+    border: 0.25px solid #fff;
+    margin: auto;
+}
+
+.table2-container table {
+    width: 90%;
+    border-collapse: collapse;
+    border: 0.25px solid #fff;
+    margin: auto;
+}
+
+.id-col {
+    width: 10%;
+}
+
+.question-col, .answer-col {
+    width: 40%;
+}
+
+
+table th, td {
+    border: 0.25px solid #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+table th {
+        background: linear-gradient(#5387E1, #315593, #315593);
+        color: white;
+}
+
+table tr:nth-child(odd){
+    background-color: white;
+}
+table tr:nth-child(even){
+    background-color: #f2f2f2;
+}
+
+
+
