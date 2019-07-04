@@ -1,5 +1,8 @@
 <?php
 
+require_once 'isAuthenticatedClass.php';
+$auth = new isAuthenticatedClass();
+
 require_once 'dbManagerClass.php';
 
 class startContent extends dbManagerClass {
@@ -15,7 +18,7 @@ class startContent extends dbManagerClass {
 
     public function deleteFormerCont() {
         $query = "DELETE FROM quiz_result WHERE user_id=?";
-        self::deletePlease($query, 'Tester', 's');
+        self::deletePlease($query, self::getSession('username'), 's');
     }
 
     public function statusList() {
@@ -41,6 +44,15 @@ class startContent extends dbManagerClass {
             }
         }
     }
+
+    public function getSession($name) {
+        if (isset($_SESSION[$name])) {
+            return $_SESSION[$name];
+        } else {
+            return 'notFound';
+        }
+    }
+
     public function getContent() {
         return $this -> content;
     }
@@ -48,4 +60,5 @@ class startContent extends dbManagerClass {
 
 $startContent = new startContent();
 $checkboxElem = $startContent -> getContent();
+
 ?>

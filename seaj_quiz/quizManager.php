@@ -1,6 +1,7 @@
 <?php
+require_once 'classes/isAuthenticatedClass.php';
+$auth = new isAuthenticatedClass();
 
-session_start();
 require_once 'classes/dbManagerClass.php';
 
 class idListCreator extends dbManagerClass {
@@ -46,7 +47,7 @@ else {
     } else {
         $time = 1000;
         if (isset($_SESSION['quizIds'])) {
-            $time = count($_SESSION['quizIds']) * 15;
+            $time = count($_SESSION['quizIds']) * 75;
         }
     }
 }

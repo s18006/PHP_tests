@@ -41,27 +41,26 @@ class quizClass extends dbManagerClass {
         $result = self::downloadParams1Row($query, $id, 'i', 4);
         if ($result[1] == 'checkbox') {
             sort($user_answer);
-            if (count($user_answer) === 3) {
-                $temp_user_answer = $user_answer[0].':/#'.$user_answer[1].':/#'.$user_answer[2];
+            if (count($user_answer) == 3) {
+                $temp_user_answer = htmlspecialchars($user_answer[0]).':/#'. htmlspecialchars($user_answer[1]).':/#'. htmlspecialchars($user_answer[2]);
                 $user_answer = '1. '. $user_answer[0]. ', 2. ' .$user_answer[1] . ', 3. '.$user_answer[2];
-            } else {
-                $temp_user_answer = $user_answer[0].':/#'.$user_answer[1];
+            } if (count($user_answer) == 2) {
+                $temp_user_answer = htmlspecialchars($user_answer[0]).':/#'. htmlspecialchars($user_answer[1]);
                 $user_answer = '1. '. $user_answer[0]. ', 2. ' .$user_answer[1];
             }
             $user_answer_hashed = hash('sha256', json_encode($temp_user_answer));
         }
         if ($result[1] === 'bet-number') {
-            $user_answer = intval($user_answer);
-            $user_answer_hashed = hash('sha256', json_encode($user_answer));
+            $user_answer_hashed = hash('sha256', json_encode(intval($user_answer)));
         }
 
         //if answer includes other parameters
         if ($result[1] === 'bet-text') {
-            $user_answer_hashed = hash('sha256', json_encode(strtolower($user_answer)));
+            $user_answer_hashed = hash('sha256', json_encode(strtolower(htmlspecialchars($user_answer))));
         }
 
         if ($result[1] === 'select' || $result[1] === 'select-img') {
-            $user_answer_hashed = hash('sha256', json_encode($user_answer));
+            $user_answer_hashed = hash('sha256', json_encode(htmlspecialchars($user_answer)));
         }
 
         if ($result[2] != $user_answer_hashed) {
@@ -79,7 +78,7 @@ class quizClass extends dbManagerClass {
         $query_row = "INSERT INTO quiz_result (user_id, id, quizId, right_answer, question, user_answer) VALUES (?, ?, ?, ?, ?, ?)";
         $id = self::getSession('idx');
         //username change when login process is ready
-        self::insertResult($query_row, array('Tester', $id, $quizId, $right_answer, $question, $user_answer), 'siisss');
+        self::insertResult($query_row, array(self::getSession('username'), $id, $quizId, $right_answer, $question, $user_answer), 'siisss');
     }
 
     //new question
