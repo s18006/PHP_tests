@@ -18,6 +18,9 @@ require_once 'classes/startContent.php';
         <?php echo $checkboxElem; ?>
       </div>
       <div class="submit-container">
+        <div class="logout-container">
+         <button type="button" class="logout-btn" onclick="logout()"> <img src="images/logout.png"/></button>
+        </div>
         <div class="summary-container">
           <span id="summary" class="summary"> 選択した章: 0 問題の数: 0</span>
         </div>

@@ -31,7 +31,7 @@ if (isset($_POST['login'])) {
     }
 }
     //logout
-if (isset($_POST['logout'])) {
+if (isset($_GET['logout'])) {
     session_destroy();
     unset($username);
     header('location: login.php');

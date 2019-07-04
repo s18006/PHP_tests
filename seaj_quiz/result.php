@@ -7,6 +7,7 @@
   <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="css/result.css">
+    <script src="js/result.js"></script>
   </head>
   <body>
     <div class="title-container">
@@ -31,7 +32,16 @@
             </table>
         </div>
     </div>
+    <div class="submit-container">
+        <div class="logout-container">
+         <button type="button" class="logout-btn" onclick="logout()"> <img src="images/logout.png"/></button>
+        </div>
+        <div class="summary-container">
+          <span id="summary" class="summary"> ログアウト又はメインページに戻るためにボタンにクリックして下さい</span>
+        </div>
+        <div class="btn-container">
+          <button type="button" onclick="window.location.href='index.php'">メインページに戻る </button>
+        </div>
+    </div>
   </body>
 </html>
-
-

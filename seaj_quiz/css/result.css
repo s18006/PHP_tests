@@ -88,5 +88,52 @@ table tr:nth-child(even){
     background-color: #f2f2f2;
 }
 
+.submit-container {
+  height: 60px;
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: 15% 55% 30%;
+  background: #fff;
+}
 
+.logout-container {
+  grid-column: 1;
+}
+
+.logout-container button {
+  width: 100%;
+  height: 60px;
+  background: #3B659C;
+}
+
+.logout-container button img {
+  width: 40px;
+  height: 40px;
+}
+
+.summary-container {
+  grid-column: 2;
+  line-height: 60px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.btn-container {
+  grid-column: 3;
+}
+
+.btn-container button {
+  width: 100%;
+  height: 60px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background: #3B659C;
+}
+
+.btn-container button:hover, .logout-container button:hover {
+  cursor: pointer;
+  background: #243956;
+  box-shadow: 0 0 20px rgba(0, 0, 0, .6);
+}
 
