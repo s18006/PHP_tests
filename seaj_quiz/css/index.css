@@ -134,19 +134,21 @@ label {
   white-space: nowrap;
   cursor: pointer;
   user-select: none;
-  transition: background-color .2s, box-shadow .2s;
+  transition: background-color .8s, box-shadow .8s;
 }
 
 label::before {
-  content: '';
+  content: "\2714";
   display: block;
   position: absolute;
   top: 10px;
   bottom: 10px;
   left: 10px;
   width: 32px;
+  padding: 5px;
   border: 3px solid #fff;
-  transition: background-color .2s;
+  background-color: #fff;
+  transition: background-color .8s;
 }
 
 label:hover, input:focus + label {
@@ -158,7 +160,7 @@ input:checked + label {
 }
 
 input:checked + label::before {
-  background-color: #fff;
+  background-color: #126323;
 }
 
 .submit-container {
