@@ -47,7 +47,7 @@ else {
     } else {
         $time = 1000;
         if (isset($_SESSION['quizIds'])) {
-            $time = count($_SESSION['quizIds']) * 75;
+            $time = count($_SESSION['quizIds']) * 45;
         }
     }
 }
