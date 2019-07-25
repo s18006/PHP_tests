@@ -15,9 +15,4 @@ class PrintBanner extends Banner implements Printer {
         parent::showWithAster();
     }
 }
-
-$printB = new PrintBanner('Hello');
-$printB -> printWeak();
-$printB -> printStrong();
-
 ?>

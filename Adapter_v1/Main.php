@@ -1,12 +1,13 @@
 <?php
 require_once 'PrintBanner.php';
 
-class Main extends PrintBanner {
+class Main {
     public function __construct() {
-        $p = parent::PrintBanner('Hello');
+        $p = new PrintBanner('Hello');
         $p -> printWeak();
         $p -> printStrong();
     }
 }
 
+$main = new Main();
 ?>
