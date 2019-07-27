@@ -11,7 +11,7 @@ class BookShelfIterator implements BookIterator {
     }
 
     public function hasNext() {
-        if ($this -> index < count($this -> bookShelf)) {
+        if ($this -> index < $this -> bookShelf -> getLength()) {
             return true;
         } else {
             return false;
@@ -19,11 +19,9 @@ class BookShelfIterator implements BookIterator {
     }
 
     public function next() {
-        $book = $this -> bookShelf[$this -> index];
+        $book = $this -> bookShelf -> getBookAt($this -> index);
         $this -> index++;
         return $book;
     }
 }
-
-
 ?>

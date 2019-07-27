@@ -1,5 +1,7 @@
 <?php
 require_once 'BookShelf.php';
+require_once 'BookShelfIterator.php';
+
 class Main {
     public function __construct() {
         $bookShelf = new BookShelf(4);
@@ -7,9 +9,9 @@ class Main {
         $bookShelf -> appendBook('Bible');
         $bookShelf -> appendBook('Cindarella');
         $bookShelf -> appendBook('Daddy-Long-Legs');
-        $bookShelf -> iterator();
-        while($bookShelf -> hasNext()) {
-            echo $bookShelf -> next(). "\n";
+        $it = $bookShelf -> iterator();
+        while($it -> hasNext()) {
+            echo $it -> next(). "\n";
         }
     }
 }

@@ -1,13 +1,20 @@
 <?php
 require_once 'Aggregate.php';
-require_once 'BookShelfIterator.php';
 
-class Bookshelf extends BookShelfIterator implements Aggregate {
+class Bookshelf implements Aggregate {
     private $books;
     private $last = 0;
 
-    public function __construct($maxsize) {
+    public function BookShelf($maxsize) {
         $this -> books = new SplFixedArray($maxsize);
+    }
+
+    public function getBookAt($index) {
+        if (isset($this -> books[$index])) {
+            return $this -> books[$index]; 
+        } else {
+            return 'failed'; 
+        }
     }
 
     public function appendBook($book) {
@@ -20,7 +27,7 @@ class Bookshelf extends BookShelfIterator implements Aggregate {
     }
 
     public function iterator() {
-        return self::BookShelfIterator($this -> books);
+        return new BookShelfIterator($this);
     }
 }
 
