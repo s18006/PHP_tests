@@ -105,7 +105,7 @@ class ListTray extends Tray {
         $buffer = "";
         $buffer .= "<li>\n";
         $buffer .= $this -> caption ."\n";
-        $buffer .= "</ul>\n";
+        $buffer .= "<ul>\n";
         $it = new ItemIterator($this -> tray);
         while($it -> hasNext()) {
             $buffer .= $it -> next() -> makeHTML();
