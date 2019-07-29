@@ -29,7 +29,7 @@ abstract class Tray extends Item {
     }
 
     public function add($item):void {
-        //add item to tray
+        //!!add item(object) to tray and the call the makeHTML method
         array_push($this -> tray, $item);
     }
 }
@@ -45,6 +45,7 @@ abstract class Page {
     }
 
     public function add($item):void {
+        //!!add item(object) to content and the call the makeHTML method
         array_push($this -> content, $item);
     }
 
@@ -108,6 +109,7 @@ class ListTray extends Tray {
         $buffer .= "<ul>\n";
         $it = new ItemIterator($this -> tray);
         while($it -> hasNext()) {
+            //call link class makeHTML() method
             $buffer .= $it -> next() -> makeHTML();
         }
         $buffer .= "</ul>\n";
@@ -132,6 +134,7 @@ class ListPage extends Page {
         $buffer .= "<ul>\n";
         $it = new ItemIterator($this -> content);
         while($it -> hasNext()) {
+            //call tray class makeHTML() method
             $buffer .= $it -> next() -> makeHTML();
         }
         $buffer .= "</ul>\n";
@@ -142,16 +145,95 @@ class ListPage extends Page {
 }
 
 class ListFactory extends Factory {
-    public function createLink(string $caption, string $url) {
+    public function createLink(string $caption, string $url):object {
+        //return an object
         return new ListLink($caption, $url);
     }
 
-    public function createTray($caption) {
+    public function createTray($caption):object {
+        //return an object
         return new ListTray($caption);
     }
 
-    public function createPage($title, $author) {
+    public function createPage($title, $author):object {
+        //return an object
         return new ListPage($title, $author);
+    }
+}
+
+class TableLink extends Link {
+    public function __construct(string $caption, string $url) {
+        parent::__construct($caption, $url);
+    }
+
+    public function makeHTML():string {
+        return "<td><a href=\">" . $this -> url . "\">"  . $this -> caption . "</a></td>\n";
+    }
+}
+
+class TableTray extends Tray {
+    public function __construct(string $caption) {
+        //instance caption in Item abstract class
+        parent::__construct($caption);
+    }
+
+    public function makeHTML():string {
+        $buffer = "";
+        $buffer .= "<td>\n";
+        $buffer .= "<table width=\"100%\" border=\"1\"><tr>";
+        $buffer .="<td bgcolor=\"#cccccc\" align=\"center\" colspan=\"". count($this -> tray) ."\"><b>" . $this -> caption ."</b></td>\n";
+        $buffer .= "</tr>\n";
+        $buffer .= "<tr>\n";
+        $it = new ItemIterator($this -> tray);
+        while($it -> hasNext()) {
+            $buffer .= $it -> next() -> makeHTML();
+        }
+        $buffer .= "</tr>\n";
+        $buffer .= "</table>\n";
+        return $buffer;
+    }
+}
+
+class TablePage extends Page {
+
+    public function __construct(string $title, string $author) {
+        parent::__construct($title, $author);
+    }
+
+    //add method in Page Class
+
+    public function makeHTML():string {
+        $buffer = "";
+        $buffer .= "<html>\n<head>\n<meta charset=\"UTF-8\"/>\n<title>" . $this -> title . "</title>\n</head>";
+        $buffer .= "<body>\n";
+        $buffer .= "<h1>" . $this -> title . "</h1>";
+        $buffer .= "<table width=\"80%\" border=\"3\">\n";
+        $it = new ItemIterator($this -> content);
+        while($it -> hasNext()) {
+            //call tray class makeHTML() method
+            $buffer .= "<tr>" . $it -> next() -> makeHTML() . "</tr>";
+        }
+        $buffer .= "</table>\n";
+        $buffer .= "<hr><address>" . $this -> author . "</address></hr>\n";
+        $buffer .= "</body>\n</html>";
+        return $buffer;
+    }
+}
+
+class TableFactory extends Factory {
+    public function createLink(string $caption, string $url):object {
+        //return an object
+        return new TableLink($caption, $url);
+    }
+
+    public function createTray($caption):object {
+        //return an object
+        return new TableTray($caption);
+    }
+
+    public function createPage($title, $author):object {
+        //return an object
+        return new TablePage($title, $author);
     }
 }
 
@@ -182,34 +264,46 @@ class ItemIterator {
 
 class Main {
     public function __construct($input) {
-        $factory = Factory::getFactory($input);
+        if ($input !== 'TableFactory' && $input !== 'ListFactory') {
+            echo 'Usage: php7.2 Main.php <and name of Concrete Factory>' . PHP_EOL;
+            echo 'Example 1: php7.2 Main.php ListFactory' . PHP_EOL;
+            echo 'Example 2: php7.2 Main.php TableFactory' . PHP_EOL;
+        } else {
+            $factory = Factory::getFactory($input);
+            $asahi = $factory -> createLink("朝日新聞", "http://www.asahi.com/");
+            $yomiuri = $factory -> createLink("読売新聞", "http://yomiuri.co.jp");
+            $us_yahoo = $factory -> createLink("Yahoo!", "http://www.yahoo.com");
+            $jp_yahoo = $factory -> createLink("Yahoo!Japan", "http://www.yahoo.co.jp");
+            $excite = $factory -> createLink("Excite", "http://www.excite.com");
+            $google = $factory -> createLink("Google", "http://www.google.com");
 
-        $asahi = $factory -> createLink("朝日新聞", "http://www.asahi.com/");
-        $yomiuri = $factory -> createLink("読売新聞", "http://yomiuri.co.jp");
-        $us_yahoo = $factory -> createLink("Yahoo!", "http://www.yahoo.com");
-        $jp_yahoo = $factory -> createLink("Yahoo!Japan", "http://www.yahoo.co.jp");
-        $excite = $factory -> createLink("Excite", "http://www.excite.com");
-        $google = $factory -> createLink("Google", "http://www.google.com");
+            $traynews = $factory -> createTray("新聞");
+            $traynews -> add($asahi);
+            $traynews -> add($yomiuri);
 
-        $traynews = $factory -> createTray("新聞");
-        $traynews -> add($asahi);
-        $traynews -> add($yomiuri);
+            $trayyahoo = $factory -> createTray("Yahoo!");
+            $trayyahoo -> add($us_yahoo);
+            $trayyahoo -> add($jp_yahoo);
 
-        $trayyahoo = $factory -> createTray("Yahoo!");
-        $trayyahoo -> add($us_yahoo);
-        $trayyahoo -> add($jp_yahoo);
+            $traysearch = $factory -> createTray("サーチエンジン");
+            $traysearch -> add($trayyahoo);
+            $traysearch -> add($excite);
+            $traysearch -> add($google);
 
-        $traysearch = $factory -> createTray("サーチエンジン");
-        $traysearch -> add($trayyahoo);
-        $traysearch -> add($excite);
-        $traysearch -> add($google);
-
-        $page = $factory -> createPage("LinkPage", "結城　浩");
-        $page -> add($traynews);
-        $page -> add($traysearch);
-        $page -> output();
+            $page = $factory -> createPage("LinkPage", "結城　浩");
+            $page -> add($traynews);
+            $page -> add($traysearch);
+            $page -> output();
+        }
     }
 }
 
-$main = new Main($argv[1]);
+
+$input;
+if (!isset($argv[1])) {
+    $input = '0';
+} else {
+    $input = $argv[1];
+}
+$main = new Main($input);
 ?>
