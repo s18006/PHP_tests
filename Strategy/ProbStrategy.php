@@ -4,13 +4,12 @@ require_once 'Strategy.php';
 
 class ProbStrategy implements Strategy {
     private $random;
-    private $seed;
     private $prevHandValue = 0;
     private $currentHandValue = 0;
     private $history = [[1, 1, 1,], [1, 1, 1], [1, 1, 1]];
 
-    public function __construct(int $seed) {
-        $this -> seed = $seed;
+    public function __construct(int $playerId) {
+        echo 'Player' . $playerId . ' is ready...' . PHP_EOL;
     }
 
     public function nextHand() {

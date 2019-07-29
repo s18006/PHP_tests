@@ -5,10 +5,9 @@ class WinningStrategy implements Strategy {
     private $random;
     private $won = false;
     private $prevHand;
-    private $seed;
 
-    public function __construct(int $seed) {
-        $this -> seed = $seed;
+    public function __construct(int $playerId) {
+        echo 'Player'. $playerId . ' is ready...' . PHP_EOL;
     }
 
     public function nextHand() {

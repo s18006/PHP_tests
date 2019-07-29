@@ -8,8 +8,8 @@ require_once 'Hand.php';
 
 class Main {
     public function __construct() {
-        $player1 = new Player("Taro", new WinningStrategy(5));
-        $player2 = new Player("Thomas", new ProbStrategy(5));
+        $player1 = new Player("Taro", new WinningStrategy(1));
+        $player2 = new Player("Thomas", new ProbStrategy(2));
         for ($i = 0; $i < 3; $i++) {
             $nextHand1 = $player1 -> nextHand();
             $nextHand2 = $player2 -> nextHand();
