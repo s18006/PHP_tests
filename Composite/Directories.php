@@ -25,9 +25,10 @@ class Directories extends Entry {
         return $size;
     }
 
-    public function add($entry) {
+    public function add(Entry $entry):void {
         array_push($this -> directory, $entry);
-        return $this -> getName();
+        //return $this -> getName();
+        //return $this;
     }
 
     public function printList(string $prefix):void {
