@@ -16,6 +16,8 @@ class Main {
             $rootdir -> add($bindir);
             $rootdir -> add($tmpdir);
             $rootdir -> add($usrdir);
+            //$test = new File('test', 200);
+            //$test -> add(new File('test2', 200));
             $bindir -> add(new File('vi', 10000));
             $bindir -> add(new File('latex', 20000));
             $rootdir -> printList("");
