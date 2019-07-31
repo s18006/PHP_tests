@@ -10,7 +10,7 @@ class SpecialSupport extends Support {
     public function __construct(string $name, int $number) {
         //name instance in Support class
         parent::__construct($name);
-        $this -> limit = $number;
+        $this -> number = $number;
     }
 
     protected function resolve(Trouble $trouble):bool {
