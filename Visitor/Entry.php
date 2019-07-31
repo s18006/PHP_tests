@@ -13,7 +13,7 @@ abstract class Entry implements Element {
         throw new Exception("メソッドの使い方は正しくありません!\nファイルに他のファイルを追加出来ませんよ!\n");
     }
 
-    public function toString():string {
+    public function __tostring():string {
         return $this -> getName() . " (" . $this -> getSize() . ")";
     }
 }

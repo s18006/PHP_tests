@@ -15,11 +15,11 @@ class ListVisitor extends Visitor {
     }
 
     public function visitFile($element) {
-        echo $this -> currentdir . "/" . $element -> toString() . PHP_EOL;
+        echo $this -> currentdir . "/" . $element . PHP_EOL;
     }
 
     public function visitDirectories($element) {
-        echo $this -> currentdir . "/" . $element -> toString() . PHP_EOL;
+        echo $this -> currentdir . "/" . $element . PHP_EOL;
         $savedir = $this -> currentdir;
         $this -> currentdir .= "/" . $element -> getName();
         $it = $element -> iterator();
