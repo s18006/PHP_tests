@@ -1,25 +1,18 @@
 <?php
 
 require_once 'classes/dbManagerClass.php';
-require_once 'classes/ItemIterator.php';
+require_once 'classes/TableCreate.php';
 $db = new dbManager;
 
 $query = array('type' => 'fetchWithColName',
-                'query' => "SELECT * FROM users",
-                'parameter' => '',
+                'query' => "SELECT id, username as user FROM users where id < ?",
+                'parameter' => 3,
                 );
-$items = new ItemIterator($db -> dbMethod($query));
-while ($items -> hasNext()) {
-    echo '<p>' .$items -> next()['id'] . '</p>' . PHP_EOL;
-}
+$items = $db -> dbMethod($query);
 
-$query = array('type' => 'fetchWithColName',
-                'query' => "SELECT * FROM users",
-                'parameter' => '',
-                );
-$items = new ItemIterator($db -> dbMethod($query));
-while ($items -> hasNext()) {
-    echo '<p>' .$items -> next()['username'] . '</p>' . PHP_EOL;
-}
+$table = new tableBody;
+$table -> addTableBody($items);
+$title = new tableTitle($items[0]);
+echo $table -> createTable($title);
 
 ?>

@@ -54,10 +54,8 @@ abstract class connection {
             } catch (PDOException $e) {
                 exit("データベースに接続できません。: {$e->getMessage()}");
             }
-            echo 'db';
         }
         $this -> query = $query['query'];
-        echo 'query';
         $this -> parameter = $query['parameter'];
     }
 
