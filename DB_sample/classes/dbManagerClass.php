@@ -42,18 +42,22 @@ class dbManager implements Manager {
 
 abstract class connection {
 
-    protected $db;
+    protected static $db;
     protected $query;
     protected $parameter;
 
     //PDO connection
     public function __construct($query) {
-        try {
-            $this -> db = new PDO('mysql:dbname=newtables;host=localhost;charset=utf8', 'testuser', '0808');
-        } catch (PDOException $e) {
-            exit("データベースに接続できません。: {$e->getMessage()}");
+        if (!isset(self::$db)) {
+            try {
+                self::$db = new PDO('mysql:dbname=newtables;host=localhost;charset=utf8', 'testuser', '0808');
+            } catch (PDOException $e) {
+                exit("データベースに接続できません。: {$e->getMessage()}");
+            }
+            echo 'db';
         }
         $this -> query = $query['query'];
+        echo 'query';
         $this -> parameter = $query['parameter'];
     }
 
@@ -74,7 +78,7 @@ class download extends connection {
     }
 
     public function prepareStat():object {
-        $stt = $this -> db -> prepare($this -> query);
+        $stt = self::$db -> prepare($this -> query);
         $stt->execute($this -> parameter);
         return $stt;
     }
@@ -103,7 +107,7 @@ abstract class oneway extends connection {
     }
 
     public function prepareStat():void {
-        $stt = $this -> db -> prepare($this -> query);
+        $stt = self::$db -> prepare($this -> query);
         $stt->execute($this -> parameter);
         $this -> result = true;
     }
