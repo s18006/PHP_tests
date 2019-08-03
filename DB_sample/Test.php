@@ -5,14 +5,19 @@ require_once 'classes/TableCreate.php';
 $db = new dbManager;
 
 $query = array('type' => 'fetchWithColName',
-                'query' => "SELECT id, username as user FROM users where id < ?",
-                'parameter' => 3,
+                'query' => "SELECT id, username FROM users",
+                'parameter' => '',
                 );
 $items = $db -> dbMethod($query);
+$query = array('type' => 'fetchWithColName',
+                'query' => "SELECT count(id) FROM users",
+                'parameter' => "",
+                );
 
-$table = new tableBody;
-$table -> addTableBody($items);
-$title = new tableTitle($items[0]);
-echo $table -> createTable($title);
+$items2 = $db -> dbMethod($query);
+
+$table = new tableCreator('Users');
+$table -> add($items);
+echo $table -> create(new tableBody());
 
 ?>
