@@ -17,7 +17,7 @@ class tableCreator {
         } //when table content is not empty
         else {
             if (count($this -> tbody) === count($content)) {
-                for ($i = 0; $i < count($this -> body); $i++) {
+                for ($i = 0; $i < count($this -> tbody); $i++) {
                     $this -> tbody[$i] += $content[$i];
                 }
             } else {
