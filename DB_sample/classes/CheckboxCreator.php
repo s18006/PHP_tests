@@ -1,10 +1,10 @@
 <?php
 
-class CheckboxCreator {
+abstract class Selector {
 
-    private $objects = array();
-    private $resultAsString;
-    private $resultAsArray = array();
+    protected $objects = array();
+    protected $resultAsString;
+    protected $resultAsArray = array();
 
     public function is_multidimensional(array $array):bool {
         return count($array) !== count($array, COUNT_RECURSIVE);
@@ -42,6 +42,12 @@ class CheckboxCreator {
     }
 
     //$elem includes name and value. Set id: name + $id
+    public abstract function createElement($id, $elem):string;
+}
+
+class CheckboxCreator extends Selector {
+
+    //$elem includes name and value. Set id: name + $id
     public function createElement($id, $elem):string {
         $temp;
         //elem has two values: 1. name, 2. value
@@ -57,6 +63,28 @@ class CheckboxCreator {
         return $temp;
     }
 }
+
+class RadioButtonCreator extends Selector {
+
+    //$elem includes name and value. Set id: name + $id
+    public function createElement($id, $elem):string {
+        $temp;
+        //elem has two values: 1. name, 2. value
+        if (count($elem) > 1) {
+            $keys = array_keys($elem);
+            $temp = '<input type="radio" id="'.$keys[0].$id.'" name="'.$keys[0].'[]" value="'.$elem[$keys[1]].'" onclick="show(this)"> <label for="'.$keys[0].$id.'" id="'.$keys[0].$id.'"> '.$elem[$keys[0]].'</label>';
+        }
+        //elem has only one value: name and value are same
+        else {
+            $keys = array_keys($elem);
+            $temp = '<input type="radio" id="'.$keys[0].$id.'" name="'.$keys[0].'[]" value="'.$elem[$keys[0]].'" onclick="show(this)"> <label for="'.$keys[0].$id.'" id="'.$keys[0].$id.'"> '.$elem[$keys[0]].'</label>';
+        }
+        return $temp;
+    }
+}
+
+
+
 
 
 ?>

@@ -1,0 +1,33 @@
+
+html {
+  font-family: TimesNewRoman, "Times New Roman", Times, Baskerville, Georgia, serif;
+  min-height: 100%;
+}
+
+body {
+  color: #435757;
+  background: radial-gradient(#fff, #dac4cd);
+}
+
+table th, td {
+    border: 0.25px solid #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+table td {
+    text-align: left;
+}
+
+
+table th {
+        background: linear-gradient(#5387E1, #315593, #315593);
+        color: white;
+}
+
+table tr:nth-child(odd){
+    background-color: white;
+}
+table tr:nth-child(even){
+    background-color: #f2f2f2;
+}

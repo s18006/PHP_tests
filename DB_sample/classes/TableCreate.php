@@ -29,7 +29,7 @@ class tableCreator {
     public function create(tableBody $tableBody):string {
         $table = '';
         $collength = (count($this -> tbody) !== count($this -> tbody, COUNT_RECURSIVE)) ? count($this -> tbody[0]) : count($this -> tbody);
-        $table .= '<table border="1" cellpadding="10"><tr><th colspan="'. $collength .'">' . $this -> name . '</th></tr>';
+        $table .= '<table><tr><th colspan="'. $collength .'">' . $this -> name . '</th></tr>';
         $tableBody -> createContent($this -> tbody);
         $table .= $tableBody -> getResult();
         $table .= '</table>';
