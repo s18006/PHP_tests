@@ -11,6 +11,7 @@ body {
 
 table {
     width: 100%;
+
 }
 
 table th, td {
@@ -25,8 +26,8 @@ table td {
 
 
 table th {
-        background: linear-gradient(#5387E1, #315593, #315593);
-        color: white;
+    background: linear-gradient(#5387E1, #315593, #315593);
+    color: white;
 }
 
 table tr:nth-child(odd){
